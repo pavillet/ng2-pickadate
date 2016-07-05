@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "out": "dist/ng2-pickadate.js",
+    "noImplicitAny": false,
+    "module": "system",
+    "target": "es5",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "declaration": true,
+    "sourceMap": true,
+    "moduleResolution": "node"
+  },
+  "files": [
+    "../index.d.ts",
+    "../typings/index.d.ts",
+    "./main.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "*.js"
+  ]
+}

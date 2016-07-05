@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "removeComments": true,
+    "noImplicitAny": false,
+    "module": "system",
+    "target": "es5",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "declaration": true,
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "rootDir": "."
+  },
+  "files": [
+    "typings/index.d.ts",
+    "system.config.ts",
+    "index.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "runtime",
+    "*.js"
+  ]
+}
