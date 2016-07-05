@@ -1,0 +1,19 @@
+{
+  "name": "ng2-pickadate",
+  "version": "0.0.1",
+  "description": "Angular2 pickadate.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cschroeter/ng2-pickadate.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cschroeter/ng2-pickadate/issues"
+  },
+  "homepage": "https://github.com/cschroeter/ng2-pickadate#readme"
+}
