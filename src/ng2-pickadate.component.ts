@@ -9,7 +9,7 @@ import 'pickadate/lib/picker.date.js';
     moduleId: __moduleName,
     selector: 'ng2-pickadate',
     templateUrl: 'ng2-pickadate.component.html',
-    styleUrls: ['ng2-pickadate.component.css'],
+    styleUrls: ['ng2-pickadate.component.css']
 })
 export class NgPickDate implements AfterViewInit {
 

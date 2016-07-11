@@ -11,8 +11,7 @@ declare var System: any;
         'jquery': 'node_modules/jquery/dist',
         'pickadate': 'node_modules/pickadate',
         'picker': 'node_modules/pickadate/lib/picker.js',
-        'picker.date': 'node_modules/pickadate/lib/picker.date.js',
-        'materialize-css': 'node_modules/materialize-css'
+        'picker.date': 'node_modules/pickadate/lib/picker.date.js'
     };
 
 // packages tells the System loader how to load when no filename and/or no extension
