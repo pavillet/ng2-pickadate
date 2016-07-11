@@ -16,7 +16,17 @@ export class NgPickDate implements AfterViewInit {
     @ViewChild('dateInput')
     elDateInput: ElementRef;
 
+    @Input() minDate: any;
+
+    @Input() maxDate: any;
+
     ngAfterViewInit() {
-        let picker = $(this.elDateInput.nativeElement).pickadate();
+        let options = {
+            min: this.minDate,
+            max: this.maxDate
+        };
+
+        let input = $(this.elDateInput.nativeElement).pickadate(options);
+        let picker = input.pickadate('picker');
     }
 }

@@ -11,7 +11,7 @@
     "moduleResolution": "node"
   },
   "files": [
-    "../index.d.ts",
+    "../ng2-pickadate.d.ts",
     "../typings/index.d.ts",
     "./main.ts"
   ],

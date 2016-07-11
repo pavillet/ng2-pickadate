@@ -14,7 +14,7 @@
   "files": [
     "typings/index.d.ts",
     "system.config.ts",
-    "index.ts"
+    "ng2-pickadate.ts"
   ],
   "exclude": [
     "node_modules",

@@ -1,6 +1,6 @@
 {
   "name": "ng2-pickadate",
-  "version": "0.0.19",
+  "version": "0.1.01",
   "description": "Angular2 pickadate.js",
   "repository": {
     "type": "git",
@@ -56,7 +56,7 @@
     "@angular/upgrade": "2.0.0-rc.1"
   },
   "files": [
-    "index.+(d.ts|js|js.map)",
+    "ng2-pickadate.+(d.ts|js|js.map)",
     "dist",
     "src/**/*.+(d.ts|js|js.map|html|css)"
   ]
