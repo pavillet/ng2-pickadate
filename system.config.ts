@@ -25,6 +25,7 @@ declare var System: any;
         '@angular/core',
         '@angular/common',
         '@angular/compiler',
+        '@angular/forms',
         '@angular/platform-browser',
         '@angular/platform-browser-dynamic'
     ];
