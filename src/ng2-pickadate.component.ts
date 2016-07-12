@@ -21,6 +21,8 @@ export class NgPickDate implements AfterViewInit, ControlValueAccessor {
 
     @Input() maxDate: any;
 
+    @Input() format: any = 'yyyy.mm.dd';
+
     private input: FormControl;
     private picker: any;
 
@@ -31,7 +33,8 @@ export class NgPickDate implements AfterViewInit, ControlValueAccessor {
     ngAfterViewInit() {
         let options = {
             min: this.minDate,
-            max: this.maxDate
+            max: this.maxDate,
+            format: this.format
         };
 
         let input = $(this.elDateInput.nativeElement).pickadate(options);

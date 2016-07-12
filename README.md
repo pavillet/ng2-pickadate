@@ -17,10 +17,12 @@ This module works with the latest release candidate of Angular 2.0. The default 
  
  @Component({
    selector: 'my-app',
-   template: `<ng2-pickadate
-                  [minDate]="[2016,06,10]"
-                  [maxDate]="[2016,08,08]">
-              </ng2-pickadate>`,
+   template: `    <ng2-pickadate
+                          [minDate]="[2016,06,10]"
+                          [maxDate]="[2016,08,08]"
+                          [format]="'dd.mm.yyyy'"
+                          formControlName="date">
+                  </ng2-pickadate>`,
    directives: [NgPickDate]
  })
  export class MyAppComponent {
