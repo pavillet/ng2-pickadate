@@ -1,4 +1,5 @@
 import { Component, ViewChild, ElementRef, AfterViewInit, Input } from '@angular/core';
+import { NgControl, ControlValueAccessor, FormControl } from '@angular/forms';
 declare var $: any; // TODO move into typings
 declare var __moduleName: any; // TODO move into typings
 
@@ -11,7 +12,7 @@ import 'datepicker/picker.date';
     templateUrl: 'ng2-pickadate.component.html',
     styleUrls: ['ng2-pickadate.component.css']
 })
-export class NgPickDate implements AfterViewInit {
+export class NgPickDate implements AfterViewInit, ControlValueAccessor {
 
     @ViewChild('dateInput')
     elDateInput: ElementRef;
@@ -20,6 +21,13 @@ export class NgPickDate implements AfterViewInit {
 
     @Input() maxDate: any;
 
+    private input: FormControl;
+    private picker: any;
+
+    constructor(private ngControl: NgControl) {
+        this.ngControl.valueAccessor = this;
+    }
+
     ngAfterViewInit() {
         let options = {
             min: this.minDate,
@@ -27,6 +35,30 @@ export class NgPickDate implements AfterViewInit {
         };
 
         let input = $(this.elDateInput.nativeElement).pickadate(options);
-        let picker = input.pickadate('picker');
+        this.picker = input.pickadate('picker');
+
+        this.selectDate(this.input.value);
+
+        $(this.elDateInput.nativeElement).change(() => {
+            this.input.updateValue($(this.elDateInput.nativeElement).val())
+        });
+    }
+
+    public writeValue(date: string): void {
+        this.input = new FormControl(date);
+    }
+
+    registerOnChange(fn: any): void {
+        this.input.valueChanges
+            .subscribe((value: any) => fn(value));
+    }
+
+    registerOnTouched(fn: any): void {
+    }
+
+    private selectDate(date: string): void {
+        if (date != '' && date != null) {
+            this.picker.set('select', date);
+        }
     }
 }
