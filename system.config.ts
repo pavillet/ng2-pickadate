@@ -5,29 +5,26 @@ declare var System: any;
     const map: any = {
         'app': 'dist',
         'rxjs': 'node_modules/rxjs',
-        'angular2-in-memory-web-api': 'node_modules/angular2-in-memory-web-api',
         '@angular': 'node_modules/@angular',
 
         'jquery': 'node_modules/jquery/dist',
-        'pickadate': 'node_modules/pickadate',
-        'picker': 'node_modules/pickadate/lib/picker.js',
-        'picker.date': 'node_modules/pickadate/lib/picker.date.js'
+        'datepicker': 'node_modules/materialize-css/js/date_picker'
     };
 
 // packages tells the System loader how to load when no filename and/or no extension
     const packages: any = {
         'app': {main: 'main'},
         'rxjs': {defaultExtension: 'js'},
-        'angular2-in-memory-web-api': {defaultExtension: 'js'},
         'jquery': {
             main: 'jquery.js'
-        }
+        },
+        'datepicker': {defaultExtension: 'js'}
     };
 
     const packageNames: string[] = [
+        '@angular/core',
         '@angular/common',
         '@angular/compiler',
-        '@angular/core',
         '@angular/platform-browser',
         '@angular/platform-browser-dynamic'
     ];

@@ -1,9 +1,9 @@
 import { Component, ViewChild, ElementRef, AfterViewInit, Input } from '@angular/core';
-declare var $: any;
-declare var __moduleName: any;
+declare var $: any; // TODO move into typings
+declare var __moduleName: any; // TODO move into typings
 
-import 'pickadate/lib/picker.js';
-import 'pickadate/lib/picker.date.js';
+import 'datepicker/picker';
+import 'datepicker/picker.date';
 
 @Component({
     moduleId: __moduleName,
