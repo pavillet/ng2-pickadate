@@ -21,6 +21,7 @@ This module works with the latest release candidate of Angular 2.0. The default 
                           [minDate]="[2016,06,10]"
                           [maxDate]="[2016,08,08]"
                           [format]="'dd.mm.yyyy'"
+                          [locale]="'de_DE'"
                           formControlName="date">
                   </ng2-pickadate>`,
    directives: [NgPickDate]

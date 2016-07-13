@@ -1,5 +1,7 @@
 import { Component, ViewChild, ElementRef, AfterViewInit, Input } from '@angular/core';
 import { NgControl, ControlValueAccessor, FormControl } from '@angular/forms';
+import * as i18n from './assets/i18n';
+
 declare var $: any; // TODO move into typings
 declare var __moduleName: any; // TODO move into typings
 
@@ -23,6 +25,8 @@ export class NgPickDate implements AfterViewInit, ControlValueAccessor {
 
     @Input() format: any = 'yyyy.mm.dd';
 
+    @Input() locale: string;
+
     private input: FormControl;
     private picker: any;
 
@@ -31,10 +35,12 @@ export class NgPickDate implements AfterViewInit, ControlValueAccessor {
     }
 
     ngAfterViewInit() {
+        this.setLocale();
+
         let options = {
             min: this.minDate,
             max: this.maxDate,
-            format: this.format
+            format: this.format,
         };
 
         let input = $(this.elDateInput.nativeElement).pickadate(options);
@@ -62,6 +68,13 @@ export class NgPickDate implements AfterViewInit, ControlValueAccessor {
     private selectDate(date: string): void {
         if (date != '' && date != null) {
             this.picker.set('select', date);
+        }
+    }
+
+    private setLocale() {
+        let optLocale = i18n.getLocale(this.locale);
+        if (optLocale != null) {
+            jQuery.extend(jQuery.fn.pickadate.defaults, optLocale);
         }
     }
 }
