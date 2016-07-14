@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, AfterViewInit, Input } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit, Input, OnChanges } from '@angular/core';
 import { NgControl, ControlValueAccessor, FormControl } from '@angular/forms';
 import * as i18n from './assets/i18n';
 
@@ -14,7 +14,7 @@ import 'datepicker/picker.date';
     templateUrl: 'ng2-pickadate.component.html',
     styleUrls: ['ng2-pickadate.component.css']
 })
-export class NgPickDate implements AfterViewInit, ControlValueAccessor {
+export class NgPickDate implements AfterViewInit, OnChanges, ControlValueAccessor {
 
     @ViewChild('dateInput')
     elDateInput: ElementRef;
@@ -30,11 +30,13 @@ export class NgPickDate implements AfterViewInit, ControlValueAccessor {
     private input: FormControl;
     private picker: any;
 
+    private initialized: boolean = false;
+
     constructor(private ngControl: NgControl) {
         this.ngControl.valueAccessor = this;
     }
 
-    ngAfterViewInit() {
+    ngOnInit() {
         this.setLocale();
 
         let options = {
@@ -42,15 +44,29 @@ export class NgPickDate implements AfterViewInit, ControlValueAccessor {
             max: this.maxDate,
             format: this.format,
         };
-
         let input = $(this.elDateInput.nativeElement).pickadate(options);
         this.picker = input.pickadate('picker');
-
-        this.selectDate(this.input.value);
 
         $(this.elDateInput.nativeElement).change(() => {
             this.input.updateValue($(this.elDateInput.nativeElement).val())
         });
+        this.initialized = true;
+    }
+
+    ngOnChanges(){
+        if(!this.initialized){
+            return;
+        }
+
+        if(this.minDate != null)
+            this.picker.set('min', this.minDate);
+
+        if(this.maxDate != null)
+            this.picker.set('max', this.maxDate);
+
+        if(this.input.value != null)
+            this.selectDate(this.input.value);
+
     }
 
     public writeValue(date: string): void {
