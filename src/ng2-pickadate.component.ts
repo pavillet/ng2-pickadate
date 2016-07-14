@@ -23,9 +23,13 @@ export class NgPickDate implements AfterViewInit, OnChanges, ControlValueAccesso
 
     @Input() maxDate: any;
 
+    @Input() disabledDates: any = [];
+
     @Input() format: any = 'yyyy.mm.dd';
 
     @Input() locale: string;
+
+    @Input() placeholder: string;
 
     private input: FormControl;
     private picker: any;
@@ -36,6 +40,10 @@ export class NgPickDate implements AfterViewInit, OnChanges, ControlValueAccesso
         this.ngControl.valueAccessor = this;
     }
 
+    ngAfterViewInit() {
+        (<HTMLInputElement>this.elDateInput.nativeElement).placeholder = this.placeholder;
+    }
+
     ngOnInit() {
         this.setLocale();
 
@@ -43,6 +51,7 @@ export class NgPickDate implements AfterViewInit, OnChanges, ControlValueAccesso
             min: this.minDate,
             max: this.maxDate,
             format: this.format,
+            disable: this.disabledDates
         };
         let input = $(this.elDateInput.nativeElement).pickadate(options);
         this.picker = input.pickadate('picker');
@@ -53,18 +62,22 @@ export class NgPickDate implements AfterViewInit, OnChanges, ControlValueAccesso
         this.initialized = true;
     }
 
-    ngOnChanges(){
-        if(!this.initialized){
+    ngOnChanges() {
+        if (!this.initialized) {
             return;
         }
 
-        if(this.minDate != null)
+        if (this.minDate != null)
             this.picker.set('min', this.minDate);
 
-        if(this.maxDate != null)
+        if (this.maxDate != null)
             this.picker.set('max', this.maxDate);
 
-        if(this.input.value != null)
+        if (this.disabledDates != null){
+            this.picker.set('disabled', this.disabledDates);
+        }
+
+        if (this.input.value != null)
             this.selectDate(this.input.value);
 
     }
