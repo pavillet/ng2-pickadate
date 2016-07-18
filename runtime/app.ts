@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
         this.form = new FormGroup({
-            date: new FormControl('[2016,18,04]')
+            date: new FormControl([2016,4,4])
         });
     }
 }

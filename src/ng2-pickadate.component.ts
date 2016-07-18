@@ -56,6 +56,8 @@ export class NgPickDate implements AfterViewInit, OnChanges, ControlValueAccesso
         let input = $(this.elDateInput.nativeElement).pickadate(options);
         this.picker = input.pickadate('picker');
 
+        this.picker.set('select', this.input.value, {format: this.format});
+
         $(this.elDateInput.nativeElement).change(() => {
             this.input.updateValue($(this.elDateInput.nativeElement).val())
         });
@@ -67,18 +69,17 @@ export class NgPickDate implements AfterViewInit, OnChanges, ControlValueAccesso
             return;
         }
 
-        if (this.minDate != null)
+        if (this.minDate != null) {
             this.picker.set('min', this.minDate);
-
-        if (this.maxDate != null)
-            this.picker.set('max', this.maxDate);
-
-        if (this.disabledDates != null){
-            this.picker.set('disabled', this.disabledDates);
         }
 
-        if (this.input.value != null)
-            this.selectDate(this.input.value);
+        if (this.maxDate != null) {
+            this.picker.set('max', this.maxDate);
+        }
+
+        if (this.disabledDates != null) {
+            this.picker.set('disabled', this.disabledDates);
+        }
 
     }
 
@@ -92,12 +93,6 @@ export class NgPickDate implements AfterViewInit, OnChanges, ControlValueAccesso
     }
 
     registerOnTouched(fn: any): void {
-    }
-
-    private selectDate(date: string): void {
-        if (date != '' && date != null) {
-            this.picker.set('select', date);
-        }
     }
 
     private setLocale() {
