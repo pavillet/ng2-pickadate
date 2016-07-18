@@ -1,5 +1,6 @@
-import { Component, ViewChild, ElementRef, AfterViewInit, Input, OnChanges } from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, OnInit } from '@angular/core';
 import { NgControl, ControlValueAccessor, FormControl } from '@angular/forms';
+import { MD_INPUT_DIRECTIVES } from "@angular2-material/input/input";
 import * as i18n from './assets/i18n';
 
 declare var $: any; // TODO move into typings
@@ -12,12 +13,10 @@ import 'datepicker/picker.date';
     moduleId: __moduleName,
     selector: 'ng2-pickadate',
     templateUrl: 'ng2-pickadate.component.html',
-    styleUrls: ['ng2-pickadate.component.css']
+    styleUrls: ['ng2-pickadate.component.css'],
+    directives: [MD_INPUT_DIRECTIVES]
 })
-export class NgPickDate implements AfterViewInit, OnChanges, ControlValueAccessor {
-
-    @ViewChild('dateInput')
-    elDateInput: ElementRef;
+export class NgPickDate implements OnInit, OnChanges, ControlValueAccessor {
 
     @Input() minDate: any;
 
@@ -32,16 +31,13 @@ export class NgPickDate implements AfterViewInit, OnChanges, ControlValueAccesso
     @Input() placeholder: string;
 
     private input: FormControl;
+    public elInput: HTMLInputElement;
     private picker: any;
 
     private initialized: boolean = false;
 
-    constructor(private ngControl: NgControl) {
+    constructor(private elMdInput: ElementRef, private ngControl: NgControl) {
         this.ngControl.valueAccessor = this;
-    }
-
-    ngAfterViewInit() {
-        (<HTMLInputElement>this.elDateInput.nativeElement).placeholder = this.placeholder;
     }
 
     ngOnInit() {
@@ -53,13 +49,16 @@ export class NgPickDate implements AfterViewInit, OnChanges, ControlValueAccesso
             format: this.format,
             disable: this.disabledDates
         };
-        let input = $(this.elDateInput.nativeElement).pickadate(options);
+
+        this.elInput = $(this.elMdInput.nativeElement).find('.md-input-element');
+
+        let input = $(this.elInput).pickadate(options);
         this.picker = input.pickadate('picker');
 
         this.picker.set('select', this.input.value, {format: this.format});
 
-        $(this.elDateInput.nativeElement).change(() => {
-            this.input.updateValue($(this.elDateInput.nativeElement).val())
+        $(this.elInput).change(() => {
+            this.input.updateValue($(this.elInput).val())
         });
         this.initialized = true;
     }
