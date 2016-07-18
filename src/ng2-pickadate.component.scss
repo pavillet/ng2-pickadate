@@ -16,11 +16,31 @@ $datepicker-selected-outfocus: desaturate(lighten($secondary-color, 35%), 15%) !
  */
 
 :host {
+  color: #939aa6;
+}
+
+input {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #9e9e9e;
+  border-radius: 0;
+  outline: none;
+  height: 3rem;
+  width: 100%;
+  font-size: 1rem;
+  margin: 0 0 15px 0;
+  padding: 0;
+  box-shadow: none;
+  box-sizing: content-box;
+  transition: all 0.3s;
+}
+
+:host {
   .picker {
     font-size: 16px;
     text-align: left;
     line-height: 1.2;
-    color: #000000;
+    color: #024393;
     position: absolute;
     z-index: 10000;
     -webkit-user-select: none;
@@ -277,31 +297,18 @@ $datepicker-selected-outfocus: desaturate(lighten($secondary-color, 35%), 15%) !
     height: 1em;
     box-sizing: content-box;
     top: -0.25em;
+    color: #c1cad6;
   }
-  //@media (min-width: 24.5em) {
-  //  .picker__nav--prev,
-  //  .picker__nav--next {
-  //    top: -0.33em;
-  //  }
-  //}
+
   .picker__nav--prev {
     left: -1em;
     padding-right: 1.25em;
   }
-  //@media (min-width: 24.5em) {
-  //  .picker__nav--prev {
-  //    padding-right: 1.5em;
-  //  }
-  //}
+
   .picker__nav--next {
     right: -1em;
     padding-left: 1.25em;
   }
-  //@media (min-width: 24.5em) {
-  //  .picker__nav--next {
-  //    padding-left: 1.5em;
-  //  }
-  //}
 
   .picker__nav--disabled,
   .picker__nav--disabled:hover,
@@ -320,10 +327,10 @@ $datepicker-selected-outfocus: desaturate(lighten($secondary-color, 35%), 15%) !
     border-collapse: collapse;
     border-spacing: 0;
     table-layout: fixed;
-    font-size: 1rem;
+    font-size: .9rem;
     width: 100%;
-    margin-top: .75em;
-    margin-bottom: .5em;
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
   }
 
   .picker__table th, .picker__table td {
@@ -341,7 +348,7 @@ $datepicker-selected-outfocus: desaturate(lighten($secondary-color, 35%), 15%) !
     width: 14.285714286%;
     font-size: .75em;
     padding-bottom: .25em;
-    color: #999999;
+    color: #939aa6;
     font-weight: 500;
     /* Increase the spacing a tad */
   }
@@ -353,6 +360,14 @@ $datepicker-selected-outfocus: desaturate(lighten($secondary-color, 35%), 15%) !
   /**
    * The days on the calendar
    */
+  .picker__day {
+    height: 34px;
+    width: 34px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   .picker__day--today {
     position: relative;
@@ -374,15 +389,6 @@ $datepicker-selected-outfocus: desaturate(lighten($secondary-color, 35%), 15%) !
   //  border-top: 0.5em solid #0059bc;
   //  border-left: .5em solid transparent;
   //}
-  .picker__day--disabled:before {
-    border-top-color: #aaaaaa;
-  }
-
-  .picker__day--infocus:hover {
-    cursor: pointer;
-    color: #000;
-    font-weight: 500;
-  }
 
   .picker__day--outfocus {
     display: none;
@@ -420,10 +426,8 @@ $datepicker-selected-outfocus: desaturate(lighten($secondary-color, 35%), 15%) !
   .picker__day--disabled,
   .picker__day--disabled:hover,
   .picker--focused .picker__day--disabled {
-    background: #f5f5f5;
-    border-color: #f5f5f5;
-    color: #dddddd;
-    cursor: default;
+    color: #939AA6;
+    cursor: default !important;
   }
   .picker__day--highlighted.picker__day--disabled,
   .picker__day--highlighted.picker__day--disabled:hover {
@@ -517,7 +521,8 @@ $datepicker-selected-outfocus: desaturate(lighten($secondary-color, 35%), 15%) !
 
   .picker__date-display {
     text-align: center;
-    background-color: $datepicker-date-bg;
+    background: linear-gradient(to top right, #004192, #0f95fc);
+    background: -webkit-linear-gradient(to top right, #004192, #0f95fc);
     color: #fff;
     padding-bottom: 15px;
     font-weight: 300;
@@ -526,12 +531,10 @@ $datepicker-selected-outfocus: desaturate(lighten($secondary-color, 35%), 15%) !
   .picker__nav--prev:hover,
   .picker__nav--next:hover {
     cursor: pointer;
-    color: #000000;
-    background: $datepicker-selected-outfocus;
   }
 
   .picker__weekday-display {
-    background-color: $datepicker-weekday-bg;
+    //background-color: $datepicker-weekday-bg;
     padding: 10px;
     font-weight: 200;
     letter-spacing: .5;
@@ -565,17 +568,17 @@ $datepicker-selected-outfocus: desaturate(lighten($secondary-color, 35%), 15%) !
   }
 
   // Calendar
-  .picker__table {
-    margin-top: 0;
-    margin-bottom: .5em;
-  }
 
   .picker__day--infocus {
-    color: #595959;
+    color: #414853;
     letter-spacing: -.3;
-    padding: .75rem 0;
+    margin: 0;
+    padding: 0;
     font-weight: 400;
     border: 1px solid transparent;
+  }
+  .picker__day--infocus:hover{
+    cursor: pointer;
   }
 
   //Today style
@@ -585,6 +588,7 @@ $datepicker-selected-outfocus: desaturate(lighten($secondary-color, 35%), 15%) !
 
   .picker__day.picker__day--today.picker__day--selected {
     color: #fff;
+    font-weight: bold;
   }
 
   // Table Header
@@ -606,6 +610,7 @@ $datepicker-selected-outfocus: desaturate(lighten($secondary-color, 35%), 15%) !
   }
 
   .picker__footer {
+    display: none;
     text-align: right;
     padding: 5px 10px;
   }
@@ -618,20 +623,11 @@ $datepicker-selected-outfocus: desaturate(lighten($secondary-color, 35%), 15%) !
   }
 
   //month nav buttons
-  .picker__nav--prev:before,
-  .picker__nav--next:before {
-    content: " ";
-    border-top: .5em solid transparent;
-    border-bottom: .5em solid transparent;
-    border-right: 0.75em solid #676767;
-    width: 0;
-    height: 0;
-    display: block;
-    margin: 0 auto;
+  .picker__nav--prev:before {
+    content: "\e312"
   }
   .picker__nav--next:before {
-    border-right: 0;
-    border-left: 0.75em solid #676767;
+    content: "\e313"
   }
   button.picker__today:focus, button.picker__clear:focus, button.picker__close:focus {
     background-color: $datepicker-selected-outfocus;
