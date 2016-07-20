@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, OnInit, NgZone, ChangeDetectorRef } from '@angular/core';
 import { NgControl, ControlValueAccessor, FormControl } from '@angular/forms';
 import { MD_INPUT_DIRECTIVES } from "@angular2-material/input/input";
 import * as i18n from './assets/i18n';
@@ -36,7 +36,9 @@ export class NgPickDate implements OnInit, OnChanges, ControlValueAccessor {
 
     private initialized: boolean = false;
 
-    constructor(private elMdInput: ElementRef, private ngControl: NgControl) {
+    private changeFunction;
+
+    constructor(private elMdInput: ElementRef, private ngControl: NgControl, private changeDetector: ChangeDetectorRef) {
         this.ngControl.valueAccessor = this;
     }
 
@@ -59,6 +61,7 @@ export class NgPickDate implements OnInit, OnChanges, ControlValueAccessor {
 
         $(this.elInput).change(() => {
             this.changeDate();
+            this.changeDetector.markForCheck();
         });
         this.initialized = true;
     }
@@ -84,11 +87,12 @@ export class NgPickDate implements OnInit, OnChanges, ControlValueAccessor {
 
     public writeValue(date: string): void {
         this.input = new FormControl(date);
+        this.input.valueChanges
+            .subscribe((value: any) => this.changeFunction(value))
     }
 
     registerOnChange(fn: any): void {
-        this.input.valueChanges
-            .subscribe((value: any) => fn(value));
+        this.changeFunction = fn;
     }
 
     registerOnTouched(fn: any): void {
@@ -103,6 +107,6 @@ export class NgPickDate implements OnInit, OnChanges, ControlValueAccessor {
 
     public changeDate(): void {
         this.picker.close();
-        this.input.updateValue($(this.elInput).val(), {emitModelToViewChange: true});
+        this.input.updateValue($(this.elInput).val(), {emitEvent: true, emitModelToViewChange: true});
     }
 }
