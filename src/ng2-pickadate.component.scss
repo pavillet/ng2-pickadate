@@ -416,10 +416,6 @@ $datepicker-selected-outfocus: desaturate(lighten($secondary-color, 35%), 15%) !
     color: #939AA6;
     cursor: default !important;
   }
-  .picker__day--highlighted.picker__day--disabled,
-  .picker__day--highlighted.picker__day--disabled:hover {
-    background: #bbbbbb;
-  }
   /**
    * The footer containing the "today", "clear", and "close" buttons.
    */
@@ -526,7 +522,6 @@ $datepicker-selected-outfocus: desaturate(lighten($secondary-color, 35%), 15%) !
     font-weight: 200;
     letter-spacing: .5;
     font-size: 1rem;
-    margin-bottom: 15px;
   }
 
   .picker__month-display {

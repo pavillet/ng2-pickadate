@@ -18,9 +18,9 @@ import 'datepicker/picker.date';
 })
 export class NgPickDate implements OnInit, OnChanges, ControlValueAccessor {
 
-    @Input() minDate: any;
+    @Input() minDate: Date;
 
-    @Input() maxDate: any;
+    @Input() maxDate: Date;
 
     @Input() disabledDates: any = [];
 
@@ -58,7 +58,7 @@ export class NgPickDate implements OnInit, OnChanges, ControlValueAccessor {
         this.picker.set('select', this.input.value, {format: this.format});
 
         $(this.elInput).change(() => {
-            this.input.updateValue($(this.elInput).val())
+            this.changeDate();
         });
         this.initialized = true;
     }
@@ -99,5 +99,10 @@ export class NgPickDate implements OnInit, OnChanges, ControlValueAccessor {
         if (optLocale != null) {
             jQuery.extend(jQuery.fn.pickadate.defaults, optLocale);
         }
+    }
+
+    public changeDate(): void {
+        this.picker.close();
+        this.input.updateValue($(this.elInput).val(), {emitModelToViewChange: true});
     }
 }
