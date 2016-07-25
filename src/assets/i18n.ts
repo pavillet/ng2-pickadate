@@ -1,5 +1,5 @@
 // German
-let de_DE = {
+let DE = {
     monthsFull: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
     monthsShort: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
     weekdaysFull: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
@@ -13,7 +13,7 @@ let de_DE = {
 };
 
 // Spain
-let es_ES = {
+let ES = {
     monthsFull: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
     monthsShort: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
     weekdaysFull: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],
@@ -27,7 +27,7 @@ let es_ES = {
 };
 
 // France
-let fr_FR = {
+let FR = {
     monthsFull: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
     monthsShort: ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec'],
     weekdaysFull: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
@@ -46,12 +46,20 @@ let fr_FR = {
 
 export function getLocale(locale: string): any {
     switch (locale) {
+        case 'DE':
+        case 'de':
         case 'de_DE':
-            return de_DE;
+            return DE;
+
+        case 'ES':
+        case 'es':
         case 'es_ES':
-            return es_ES;
+            return ES;
+
+        case 'FR':
+        case 'fr':
         case 'fr_FR':
-            return fr_FR;
+            return FR;
         default:
             return null;
     }
