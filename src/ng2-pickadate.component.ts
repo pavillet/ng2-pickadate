@@ -22,6 +22,8 @@ export class NgPickDate implements OnInit, OnChanges, ControlValueAccessor {
 
     @Input() maxDate: Date;
 
+    @Input() disabled: boolean;
+
     @Input() disabledDates: any = [];
 
     @Input() format: any = 'yyyy.mm.dd';

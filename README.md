@@ -20,6 +20,7 @@ This module works with the latest release candidate of Angular 2.0. The default 
    template: `    <ng2-pickadate
                           [minDate]="[2016,06,10]"
                           [maxDate]="[2016,08,08]"
+                          [disabled]="false"
                           [disabledDates]="[{ from: [2016, 7, 5], to: [2016,7, 8] }, { from: [2016, 7, 13], to: [2016,7, 17] }]"
                           [format]="'dd.mm.yyyy'"
                           [locale]="'de_DE'"
