@@ -11,9 +11,14 @@ export class AppComponent implements OnInit {
 
     private form: FormGroup;
 
+    public disabledDates: any = [
+        {from: new Date(2016, 6, 6), to: new Date(2016, 6, 9)},
+        {from: new Date(2016, 7, 9), to: new Date(2016, 7, 9)}
+    ];
+
     ngOnInit() {
         this.form = new FormGroup({
-            date: new FormControl([2016,4,4])
+            date: new FormControl([2016, 6, 15])
         });
     }
 }

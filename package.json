@@ -1,6 +1,6 @@
 {
   "name": "ng2-pickadate",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Angular2 pickadate.js",
   "repository": {
     "type": "git",
@@ -23,6 +23,7 @@
   "dependencies": {
     "jquery": "^2.2.4",
     "materialize-css": "^0.97.6",
+    "moment": "^2.14.1",
     "pickadate": "^3.5.6"
   },
   "devDependencies": {

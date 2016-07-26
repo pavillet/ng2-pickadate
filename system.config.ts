@@ -9,6 +9,7 @@ declare var System: any;
 
         'jquery': 'node_modules/jquery/dist',
         'datepicker': 'node_modules/materialize-css/js/date_picker',
+        'moment': 'node_modules/moment',
         '@angular2-material/core': 'node_modules/@angular2-material/core',
         '@angular2-material/input': 'node_modules/@angular2-material/input'
     };
@@ -21,6 +22,7 @@ declare var System: any;
             main: 'jquery.js'
         },
         'datepicker': {defaultExtension: 'js'},
+        'moment': {main: 'moment.js'},
         '@angular2-material': {defaultExtension: 'js'}
     };
 

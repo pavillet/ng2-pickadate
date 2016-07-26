@@ -1,11 +1,13 @@
 <form [formGroup]="form">
     <ng2-pickadate
-            [minDate]="[2015,6,10]"
-            [maxDate]="[2016,8,8]"
+            [minDate]="[2016,6,5]"
+            [maxDate]="[2016,7,28]"
             [disabled]="false"
+            [disabledDates]="disabledDates"
             [format]="'dd.mm.yyyy'"
             [locale]="'de_DE'"
             [placeholder]="'Start Date'"
+            [description]="'Hinweis: An jedem Tag kann nur maximal eine Werbekampagne aktiv sein.'"
             formControlName="date">
     </ng2-pickadate>
 </form>

@@ -19,7 +19,7 @@ $datepicker-selected-outfocus: desaturate(lighten($secondary-color, 35%), 15%) !
   display: block;
   color: #000;
 
-  md-input{
+  md-input {
     width: 100%;
   }
 
@@ -92,7 +92,7 @@ $datepicker-selected-outfocus: desaturate(lighten($secondary-color, 35%), 15%) !
     min-width: 256px;
 
     //  picker width
-    width: 300px;
+    width: 360px;
     max-height: 350px;
 
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
@@ -349,7 +349,7 @@ $datepicker-selected-outfocus: desaturate(lighten($secondary-color, 35%), 15%) !
    */
   .picker__day {
     height: 34px;
-    width: 34px;
+    width: 100%;
 
     display: flex;
     justify-content: center;
@@ -365,17 +365,6 @@ $datepicker-selected-outfocus: desaturate(lighten($secondary-color, 35%), 15%) !
     border: 1px solid transparent;
 
   }
-
-  //.picker__day--today:before {
-  //  content: " ";
-  //  position: absolute;
-  //  top: 2px;
-  //  right: 2px;
-  //  width: 0;
-  //  height: 0;
-  //  border-top: 0.5em solid #0059bc;
-  //  border-left: .5em solid transparent;
-  //}
 
   .picker__day--outfocus {
     display: none;
@@ -394,27 +383,46 @@ $datepicker-selected-outfocus: desaturate(lighten($secondary-color, 35%), 15%) !
     //  border-color: #0089ec;
   }
   .picker__day--highlighted:hover,
-  .picker--focused .picker__day--highlighted {
+  .picker--focused .picker__day--highlighted  .picker__day--selected {
     cursor: pointer;
-    //  color: #000000;
-    //  background: #b1dcfb;
-    //  font-weight: 500;
+      color: #fff;
   }
-  .picker__day--selected,
-  .picker__day--selected:hover,
-  .picker--focused .picker__day--selected {
 
+  .picker--focused .picker__day--selected{
+    position: relative;
+    z-index: 1;
     //  Circle background
+    content: '';
     border-radius: 50%;
-    transform: scale(.75);
+    border: 1px solid #e1e5ec;
+    transform: scale(0.9);
     background: #0089ec;
     color: #ffffff;
   }
   .picker__day--disabled,
   .picker__day--disabled:hover,
-  .picker--focused .picker__day--disabled {
-    color: #939AA6;
-    cursor: default !important;
+  .picker--focused .picker__day--disabled .picker__day--disabled:hover {
+    color: #c1cad6 !important;
+    cursor: not-allowed !important;
+    position: relative;
+  }
+
+  .disabled-date-range-item{
+    color: #000;
+  }
+  .disabled-date-range-item:after {
+    position: absolute;
+    bottom: .1rem;
+    left: .95rem;
+    content: '';
+    border-radius: 50%;
+    background: #0f95fc;
+    height: .25rem;
+    width: .25rem;
+  }
+
+  .picker--focused .picker__day--disabled:hover{
+    color: #c1cad6;
   }
   /**
    * The footer containing the "today", "clear", and "close" buttons.
@@ -542,30 +550,46 @@ $datepicker-selected-outfocus: desaturate(lighten($secondary-color, 35%), 15%) !
     padding: 0;
   }
   .picker__calendar-container {
-    padding: 0 1rem;
+    padding: 0 1rem 1.5rem 1rem;
 
     thead {
       border: none;
     }
   }
 
+  .picker__calendar-container:after {
+    content: attr(data-content);
+    color: #414853;
+    font-size: .85rem;
+  }
+
   // Calendar
+
 
   .picker__day--infocus {
     color: #414853;
     letter-spacing: -.3;
-    margin: 0;
+    margin: 0 0 0 3px;
+    width: 34px;
+
     padding: 0;
     font-weight: 400;
     border: 1px solid transparent;
   }
-  .picker__day--infocus:hover{
+  .picker__day--infocus:hover {
+    color: #0f95fc;
     cursor: pointer;
   }
+  .picker__day--selected.picker__day--highlighted:hover{
+    color: #fff;
+  }
 
-  //Today style
+    //Today style
   .picker__day.picker__day--today {
-    color: $datepicker-selected;
+    font-weight: bold;
+    border-radius: 50%;
+    border: 1px solid #e1e5ec;
+    transform: scale(0.9);
   }
 
   .picker__day.picker__day--today.picker__day--selected {
@@ -576,19 +600,6 @@ $datepicker-selected-outfocus: desaturate(lighten($secondary-color, 35%), 15%) !
   // Table Header
   .picker__weekday {
     font-size: .9rem;
-  }
-
-  .picker__day--selected,
-  .picker__day--selected:hover,
-  .picker--focused .picker__day--selected {
-    // Circle background
-    border-radius: 50%;
-    transform: scale(.9);
-    background-color: $datepicker-selected;
-    &.picker__day--outfocus {
-      background-color: $datepicker-selected-outfocus;
-    }
-    color: #ffffff;
   }
 
   .picker__footer {
