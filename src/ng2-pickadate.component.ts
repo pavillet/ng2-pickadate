@@ -35,6 +35,8 @@ export class NgPickDate implements OnInit, OnChanges, ControlValueAccessor {
 
     @Input() description: string;
 
+    @Input() fControl: FormControl;
+
     private input: FormControl;
     public elInput: HTMLInputElement;
     private picker: any;
@@ -57,6 +59,9 @@ export class NgPickDate implements OnInit, OnChanges, ControlValueAccessor {
             disable: this.disabledDates,
             onRender: () => {
                 this.highlightDisabledDates();
+            },
+            onSet: (thingSet) => {
+                this.changeDateByPicker();
             }
         };
 
@@ -68,12 +73,16 @@ export class NgPickDate implements OnInit, OnChanges, ControlValueAccessor {
         this.picker.set('select', this.input.value, {format: this.format});
 
         $(this.elInput).change(() => {
-            this.changeDate();
             this.changeDetector.markForCheck();
         });
-        this.initialized = true;
+        this.fControl.valueChanges.subscribe((value: string) => {
+            this.changeDateByFormControl();
+        });
+
 
         $('.picker__calendar-container').attr('data-content', this.description);
+
+        this.initialized = true;
     }
 
     ngOnChanges() {
@@ -118,9 +127,18 @@ export class NgPickDate implements OnInit, OnChanges, ControlValueAccessor {
         }
     }
 
-    public changeDate(): void {
-        this.picker.close();
-        this.input.updateValue($(this.elInput).val(), {emitEvent: true, emitModelToViewChange: true});
+    public changeDateByFormControl(): void {
+        if (this.input.value != $(this.elInput).val()) {
+            this.picker.set('select', this.input.value, {format: this.format});
+        }
+    }
+    public changeDateByPicker(): void {
+        let jQueryInputValue = $(this.elInput).val();
+        if (this.input.value != jQueryInputValue) {
+            this.input.updateValue($(this.elInput).val(), {emitEvent: true, emitModelToViewChange: true});
+            this.picker.set('select', jQueryInputValue, {format: this.format});
+            this.picker.close();
+        }
     }
 
     public highlightDisabledDates(): void {
