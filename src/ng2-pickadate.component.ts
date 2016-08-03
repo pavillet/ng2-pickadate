@@ -36,14 +36,16 @@ export class NgPickDate implements OnInit, OnChanges, ControlValueAccessor {
     @Input() description: string;
 
     private input: FormControl;
-    public elInput: HTMLInputElement;
+    public inputElement: HTMLInputElement;
     private picker: any;
 
     private initialized: boolean = false;
 
     private changeFunction;
 
-    constructor(private elMdInput: ElementRef, private ngControl: NgControl, private changeDetector: ChangeDetectorRef) {
+    constructor(private elementRef: ElementRef,
+                private ngControl: NgControl,
+                private changeDetector: ChangeDetectorRef) {
         this.ngControl.valueAccessor = this;
     }
 
@@ -60,14 +62,14 @@ export class NgPickDate implements OnInit, OnChanges, ControlValueAccessor {
             }
         };
 
-        this.elInput = $(this.elMdInput.nativeElement).find('.md-input-element');
+        this.inputElement = $(this.elementRef.nativeElement).find('.inp-input-element');
 
-        let input = $(this.elInput).pickadate(options);
+        let input = $(this.inputElement).pickadate(options);
         this.picker = input.pickadate('picker');
 
         this.picker.set('select', this.input.value, {format: this.format});
 
-        $(this.elInput).change(() => {
+        $(this.inputElement).change(() => {
             this.changeDate();
             this.changeDetector.markForCheck();
         });
@@ -120,7 +122,7 @@ export class NgPickDate implements OnInit, OnChanges, ControlValueAccessor {
 
     public changeDate(): void {
         this.picker.close();
-        this.input.updateValue($(this.elInput).val(), {emitEvent: true, emitModelToViewChange: true});
+        this.input.updateValue($(this.inputElement).val(), {emitEvent: true, emitModelToViewChange: true});
     }
 
     public highlightDisabledDates(): void {
