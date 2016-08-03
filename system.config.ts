@@ -9,9 +9,7 @@ declare var System: any;
 
         'jquery': 'node_modules/jquery/dist',
         'datepicker': 'node_modules/materialize-css/js/date_picker',
-        'moment': 'node_modules/moment',
-        '@angular2-material/core': 'node_modules/@angular2-material/core',
-        '@angular2-material/input': 'node_modules/@angular2-material/input'
+        'moment': 'node_modules/moment'
     };
 
 // packages tells the System loader how to load when no filename and/or no extension
@@ -22,8 +20,7 @@ declare var System: any;
             main: 'jquery.js'
         },
         'datepicker': {defaultExtension: 'js'},
-        'moment': {main: 'moment.js'},
-        '@angular2-material': {defaultExtension: 'js'}
+        'moment': {main: 'moment.js'}
     };
 
     const packageNames: string[] = [
@@ -32,9 +29,7 @@ declare var System: any;
         '@angular/compiler',
         '@angular/forms',
         '@angular/platform-browser',
-        '@angular/platform-browser-dynamic',
-        '@angular2-material/core',
-        '@angular2-material/input'
+        '@angular/platform-browser-dynamic'
     ];
 
     packageNames.forEach((pkgName: string) => {

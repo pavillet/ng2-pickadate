@@ -6,84 +6,87 @@
  * Note: the root picker element should *NOT* be styled more than what's here.
  */
 :host {
+  display: block;
+  color: #000;
+  font-family: "Roboto", sans-serif;
   /**
- * The picker input element.
- */
+   * The picker input element.
+   */
   /**
- * When the picker is opened, the input element is "activated".
- */
+   * When the picker is opened, the input element is "activated".
+   */
   /**
- * The holder is the only "scrollable" top-level container element.
- */
+   * The holder is the only "scrollable" top-level container element.
+   */
   /*!
- * Default mobile-first, responsive styling for pickadate.js
- * Demo: http://amsul.github.io/pickadate.js
- */
+   * Default mobile-first, responsive styling for pickadate.js
+   * Demo: http://amsul.github.io/pickadate.js
+   */
   /**
- * Note: the root picker element should *NOT* be styled more than what's here.
- */
+   * Note: the root picker element should *NOT* be styled more than what's here.
+   */
   /**
- * Make the holder and frame fullscreen.
- */
+   * Make the holder and frame fullscreen.
+   */
   /**
- * The holder should overlay the entire screen.
- */
+   * The holder should overlay the entire screen.
+   */
   /**
- * The frame that bounds the box contents of the picker.
- */
+   * The frame that bounds the box contents of the picker.
+   */
   /**
- * The wrapper sets the stage to vertically align the box contents.
- */
+   * The wrapper sets the stage to vertically align the box contents.
+   */
   /**
- * The box contains all the picker contents.
- */
+   * The box contains all the picker contents.
+   */
   /**
- * When the picker opens...
- */
+   * When the picker opens...
+   */
   /**
- * For `large` screens, transform into an inline picker.
- */
+   * For `large` screens, transform into an inline picker.
+   */
   /* ==========================================================================
-   CUSTOM MATERIALIZE STYLES
-   ========================================================================== */
+     CUSTOM MATERIALIZE STYLES
+     ========================================================================== */
   /* ==========================================================================
-   $BASE-DATE-PICKER
-   ========================================================================== */
+     $BASE-DATE-PICKER
+     ========================================================================== */
   /**
- * The picker box.
- */
+   * The picker box.
+   */
   /**
- * The header containing the month and year stuff.
- */
+   * The header containing the month and year stuff.
+   */
   /**
- * The month and year labels.
- */
+   * The month and year labels.
+   */
   /**
- * The month and year selectors.
- */
+   * The month and year selectors.
+   */
   /**
- * The month navigation buttons.
- */
+   * The month navigation buttons.
+   */
   /**
- * The calendar table of dates
- */
+   * The calendar table of dates
+   */
   /**
- * The weekday labels
- */
+   * The weekday labels
+   */
   /**
- * The days on the calendar
- */
+   * The days on the calendar
+   */
   /**
- * The footer containing the "today", "clear", and "close" buttons.
- */
+   * The footer containing the "today", "clear", and "close" buttons.
+   */
   /* ==========================================================================
-   CUSTOM MATERIALIZE STYLES
-   ========================================================================== */ }
+     CUSTOM MATERIALIZE STYLES
+     ========================================================================== */ }
   :host .picker {
     font-size: 16px;
     text-align: left;
     line-height: 1.2;
-    color: #000000;
+    color: #024393;
     position: absolute;
     z-index: 10000;
     -webkit-user-select: none;
@@ -114,7 +117,7 @@
     position: absolute;
     margin: 0 auto;
     min-width: 256px;
-    width: 300px;
+    width: 360px;
     max-height: 350px;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
     filter: alpha(opacity=0);
@@ -218,7 +221,8 @@
     width: 1em;
     height: 1em;
     box-sizing: content-box;
-    top: -0.25em; }
+    top: -0.25em;
+    color: #c1cad6; }
   :host .picker__nav--prev {
     left: -1em;
     padding-right: 1.25em; }
@@ -238,10 +242,10 @@
     border-collapse: collapse;
     border-spacing: 0;
     table-layout: fixed;
-    font-size: 1rem;
+    font-size: .9rem;
     width: 100%;
-    margin-top: .75em;
-    margin-bottom: .5em; }
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem; }
   :host .picker__table th, :host .picker__table td {
     text-align: center; }
   :host .picker__table td {
@@ -251,12 +255,18 @@
     width: 14.285714286%;
     font-size: .75em;
     padding-bottom: .25em;
-    color: #999999;
+    color: #939aa6;
     font-weight: 500;
     /* Increase the spacing a tad */ }
   @media (min-height: 33.875em) {
     :host .picker__weekday {
       padding-bottom: .5em; } }
+  :host .picker__day {
+    height: 34px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
   :host .picker__day--today {
     position: relative;
     color: #595959;
@@ -264,12 +274,6 @@
     padding: .75rem 0;
     font-weight: 400;
     border: 1px solid transparent; }
-  :host .picker__day--disabled:before {
-    border-top-color: #aaaaaa; }
-  :host .picker__day--infocus:hover {
-    cursor: pointer;
-    color: #000;
-    font-weight: 500; }
   :host .picker__day--outfocus {
     display: none;
     padding: .75rem 0;
@@ -279,25 +283,37 @@
     color: #dddddd;
     font-weight: 500; }
   :host .picker__day--highlighted:hover,
-  :host .picker--focused .picker__day--highlighted {
-    cursor: pointer; }
-  :host .picker__day--selected,
-  :host .picker__day--selected:hover,
+  :host .picker--focused .picker__day--highlighted .picker__day--selected {
+    cursor: pointer;
+    color: #fff; }
   :host .picker--focused .picker__day--selected {
+    position: relative;
+    z-index: 1;
+    content: '';
     border-radius: 50%;
-    transform: scale(0.75);
+    border: 1px solid #e1e5ec;
+    transform: scale(0.9);
     background: #0089ec;
     color: #ffffff; }
   :host .picker__day--disabled,
   :host .picker__day--disabled:hover,
-  :host .picker--focused .picker__day--disabled {
-    background: #f5f5f5;
-    border-color: #f5f5f5;
-    color: #dddddd;
-    cursor: default; }
-  :host .picker__day--highlighted.picker__day--disabled,
-  :host .picker__day--highlighted.picker__day--disabled:hover {
-    background: #bbbbbb; }
+  :host .picker--focused .picker__day--disabled .picker__day--disabled:hover {
+    color: #c1cad6 !important;
+    cursor: not-allowed !important;
+    position: relative; }
+  :host .disabled-date-range-item {
+    color: #000; }
+  :host .disabled-date-range-item:after {
+    position: absolute;
+    bottom: .1rem;
+    left: .95rem;
+    content: '';
+    border-radius: 50%;
+    background: #0f95fc;
+    height: .25rem;
+    width: .25rem; }
+  :host .picker--focused .picker__day--disabled:hover {
+    color: #c1cad6; }
   :host .picker__footer {
     text-align: center;
     display: flex;
@@ -366,22 +382,19 @@
     overflow: hidden; }
   :host .picker__date-display {
     text-align: center;
-    background-color: #0f95fc;
+    background: linear-gradient(to top right, #004192, #0f95fc);
+    background: -webkit-linear-gradient(to top right, #004192, #0f95fc);
     color: #fff;
     padding-bottom: 15px;
     font-weight: 300; }
   :host .picker__nav--prev:hover,
   :host .picker__nav--next:hover {
-    cursor: pointer;
-    color: #000000;
-    background: #c4e2f9; }
+    cursor: pointer; }
   :host .picker__weekday-display {
-    background-color: #0382e4;
     padding: 10px;
     font-weight: 200;
     letter-spacing: .5;
-    font-size: 1rem;
-    margin-bottom: 15px; }
+    font-size: 1rem; }
   :host .picker__month-display {
     text-transform: uppercase;
     font-size: 2rem; }
@@ -394,54 +407,47 @@
   :host .picker__box {
     padding: 0; }
   :host .picker__calendar-container {
-    padding: 0 1rem; }
+    padding: 0 1rem 1.5rem 1rem; }
     :host .picker__calendar-container thead {
       border: none; }
-  :host .picker__table {
-    margin-top: 0;
-    margin-bottom: .5em; }
+  :host .picker__calendar-container:after {
+    content: attr(data-content);
+    color: #414853;
+    font-size: .85rem; }
   :host .picker__day--infocus {
-    color: #595959;
+    color: #414853;
     letter-spacing: -.3;
-    padding: .75rem 0;
+    margin: 0 0 0 3px;
+    width: 34px;
+    padding: 0;
     font-weight: 400;
     border: 1px solid transparent; }
-  :host .picker__day.picker__day--today {
-    color: #0f95fc; }
-  :host .picker__day.picker__day--today.picker__day--selected {
+  :host .picker__day--infocus:hover {
+    color: #0f95fc;
+    cursor: pointer; }
+  :host .picker__day--selected.picker__day--highlighted:hover {
     color: #fff; }
+  :host .picker__day.picker__day--today {
+    font-weight: bold;
+    border-radius: 50%;
+    border: 1px solid #e1e5ec;
+    transform: scale(0.9); }
+  :host .picker__day.picker__day--today.picker__day--selected {
+    color: #fff;
+    font-weight: bold; }
   :host .picker__weekday {
     font-size: .9rem; }
-  :host .picker__day--selected,
-  :host .picker__day--selected:hover,
-  :host .picker--focused .picker__day--selected {
-    border-radius: 50%;
-    transform: scale(0.9);
-    background-color: #0f95fc;
-    color: #ffffff; }
-    :host .picker__day--selected.picker__day--outfocus,
-    :host .picker__day--selected:hover.picker__day--outfocus,
-    :host .picker--focused .picker__day--selected.picker__day--outfocus {
-      background-color: #c4e2f9; }
   :host .picker__footer {
+    display: none;
     text-align: right;
     padding: 5px 10px; }
   :host .picker__close, :host .picker__today {
     font-size: 1.1rem;
     padding: 0 1rem;
     color: #0f95fc; }
-  :host .picker__nav--prev:before,
+  :host .picker__nav--prev:before {
+    content: "\e312"; }
   :host .picker__nav--next:before {
-    content: " ";
-    border-top: .5em solid transparent;
-    border-bottom: .5em solid transparent;
-    border-right: 0.75em solid #676767;
-    width: 0;
-    height: 0;
-    display: block;
-    margin: 0 auto; }
-  :host .picker__nav--next:before {
-    border-right: 0;
-    border-left: 0.75em solid #676767; }
+    content: "\e313"; }
   :host button.picker__today:focus, :host button.picker__clear:focus, :host button.picker__close:focus {
     background-color: #c4e2f9; }

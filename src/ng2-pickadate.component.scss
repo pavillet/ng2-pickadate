@@ -19,9 +19,7 @@ $datepicker-selected-outfocus: desaturate(lighten($secondary-color, 35%), 15%) !
   display: block;
   color: #000;
 
-  md-input {
-    width: 100%;
-  }
+  font-family: "Roboto", sans-serif;
 
   .picker {
     font-size: 16px;

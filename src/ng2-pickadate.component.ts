@@ -1,6 +1,5 @@
-import { Component, ElementRef, Input, OnChanges, OnInit, NgZone, ChangeDetectorRef } from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, OnInit, ChangeDetectorRef } from '@angular/core';
 import { NgControl, ControlValueAccessor, FormControl } from '@angular/forms';
-import { MD_INPUT_DIRECTIVES } from "@angular2-material/input/input";
 import * as i18n from './assets/i18n';
 import moment from 'moment';
 
@@ -15,7 +14,6 @@ import 'datepicker/picker.date';
     selector: 'ng2-pickadate',
     templateUrl: 'ng2-pickadate.component.html',
     styleUrls: ['ng2-pickadate.component.css'],
-    directives: [MD_INPUT_DIRECTIVES]
 })
 export class NgPickDate implements OnInit, OnChanges, ControlValueAccessor {
 
@@ -62,7 +60,7 @@ export class NgPickDate implements OnInit, OnChanges, ControlValueAccessor {
             }
         };
 
-        this.inputElement = $(this.elementRef.nativeElement).find('.inp-input-element');
+        this.inputElement = $(this.elementRef.nativeElement).find('input');
 
         let input = $(this.inputElement).pickadate(options);
         this.picker = input.pickadate('picker');
