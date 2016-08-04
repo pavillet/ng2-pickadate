@@ -1,26 +1,42 @@
 {
   "name": "ng2-pickadate",
   "version": "0.2.2",
-  "description": "Angular2 pickadate.js",
+  "description": "An Angular2 Datepicker",
+  "keywords": [
+    "angular",
+    "angular2",
+    "calendar",
+    "datepicker"
+  ],
+  "homepage": "https://github.com/cschroeter/ng2-pickadate#readme",
+  "bugs": {
+    "url": "https://github.com/cschroeter/ng2-pickadate/issues"
+  },
+  "license": "MIT",
+  "contributors": [
+    {
+      "name": "Christian Schröter",
+      "email": "dev@cschroeter.net"
+    },
+    {
+      "name": "Simon Holzmayer"
+    }
+  ],
+  "main": "ng2-pickadate.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cschroeter/ng2-pickadate.git"
   },
-  "bugs": {
-    "url": "https://github.com/cschroeter/ng2-pickadate/issues"
-  },
-  "homepage": "https://github.com/cschroeter/ng2-pickadate#readme",
   "scripts": {
-    "prepublish": "concurrently tsc \"npm run build-css\"",
-    "build-css": "node-sass --r src -o src",
-    "watch-css": "nodemon -e scss -x \"npm run build-css\"",
     "all": "concurrently \"tsc -w \" \"tsc -p runtime -w \" \"npm run watch-css\" \"npm run lite\" ",
-    "watch": "tsc -w ",
-    "lite": "lite-server",
+    "build-css": "node-sass --r src -o src",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "clean": "git clean -f -X",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
+    "lite": "lite-server",
+    "prepublish": "concurrently tsc \"npm run build-css\"",
+    "watch": "tsc -w ",
+    "watch-css": "nodemon -e scss -x \"npm run build-css\""
   },
-  "license": "MIT",
   "dependencies": {
     "jquery": "^2.2.4",
     "materialize-css": "^0.97.6",
@@ -48,16 +64,11 @@
     "zone.js": "^0.6.12"
   },
   "peerDependencies": {
-    "@angular/core": "^2.0.0-rc.4",
     "@angular/common": "^2.0.0-rc.4",
     "@angular/compiler": "^2.0.0-rc.4",
+    "@angular/core": "^2.0.0-rc.4",
     "@angular/forms": "^0.2.0",
     "@angular/platform-browser": "^2.0.0-rc.4",
     "@angular/platform-browser-dynamic": "^2.0.0-rc.4"
-  },
-  "files": [
-    "ng2-pickadate.+(d.ts|js|js.map)",
-    "dist",
-    "src/**/*.+(d.ts|js|js.map|html|css)"
-  ]
+  }
 }
