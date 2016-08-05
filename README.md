@@ -1,8 +1,11 @@
 ﻿# ng2-pickadate
 
 An Angular2 component for pickadate.js. 
-
 See the [changelog](./CHANGELOG.md) for more information.
+
+
+### Demo
+* Demo can be found at [https://cschroeter.github.io/ng2-pickadate/](https://cschroeter.github.io/ng2-pickadate/) 
 
 
 ### Usage
