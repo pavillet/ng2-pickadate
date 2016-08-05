@@ -1,5 +1,23 @@
+<a name="0.3.0"></a>
+# [0.3.0](https://github.com/cschroeter/ng2-pickadate/compare/0.2.2...v0.3.0) (2016-08-05)
+
+
+### Features
+
+* Reimplement Ng2Pickadate ([b9b6581](https://github.com/cschroeter/ng2-pickadate/commit/b9b6581))
+
+
+### BREAKING CHANGES
+
+* Rename NgPickdate to Ng2Pickadate for obvious reasons.
+* Rename parameters minDate and maxDate to min and max to be consistent with the pickadate.js API.
+* Drop support for locale, disabled and disabledDates for the moment.
+* Change module format to CommonJs.
+
+
+
 <a name="0.2.2"></a>
-## 0.2.2 (2016-08-03)
+## [0.2.2](https://github.com/cschroeter/ng2-pickadate/compare/4b12165...0.2.2) (2016-08-03)
 
 
 ### Bug Fixes
