@@ -1,90 +1,39 @@
-﻿**This is a Angular2-wrapper, to bind the jquery-pickadate.js - datepicker as an angular2-component.**
+﻿# ng2-pickadate
 
-This module works with the latest release candidate of Angular 2.0. The default styling is the Material-Design from materialize-css.
+An Angular2 component for pickadate.js. 
 
-------------
-##Installation
- 
- ```bash
- npm install --save ng2-pickadate
- ```
+See the [changelog](./CHANGELOG.md) for more information.
 
-------------
-##Usage
+
+### Usage
 
  ```typescript
- import { NgPickDate } from 'ng2-pickadate/ng2-pickadate';
+import { Component } from '@angular/core';
+import { Ng2Pickadate } from 'ng2-pickadate/ng2-pickadate';
  
  @Component({
    selector: 'my-app',
-   template: `    <ng2-pickadate
-                          [minDate]="[2016,06,10]"
-                          [maxDate]="[2016,08,08]"
-                          [disabled]="false"
-                          [disabledDates]="[{ from: [2016, 7, 5], to: [2016,7, 8] }, { from: [2016, 7, 13], to: [2016,7, 17] }]"
-                          [format]="'dd.mm.yyyy'"
-                          [locale]="'de_DE'"
-                          formControlName="date">
-                  </ng2-pickadate>`,
-   directives: [NgPickDate]
+   template: `<ng2-pickadate [min]="minDate" (select)="onSelect($event)"></ng2-pickadate>`,
+   directives: [Ng2Pickadate]
  })
  export class MyAppComponent {
+     public minDate: Date = new Date();
+     
+     public onSelect(timestamp): void {
+         console.log(timestamp)
+     }
  }
  
  ```
 
 
-------------
-##Dependencies
-    jquery
-    materialize-css
-    
-Using Angular-CLI, those dependencies must be provided by systemjs!
+### Requirements
 
-system.config.ts:
-```typescript
+* [Angular2](https://angular.io/)
+* [pickadate](http://amsul.ca/pickadate.js/)
+* [JQuery](http://jquery.com/)
 
-const packages: any = {
-  'jquery': {
-    main: 'dist/jquery.min.js'
-  },
-  'ng2-pickadate': {
-    main: 'dist/ng2-pickadate',
-    defaultExtension: 'js'
-  },
-  'datepicker': {
-    defaultExtension: 'js'
-  }
-};
 
-...
+### Installation
 
-const barrels: string[] = [
-  'ng2-pickadate/dist',
-  'materialize-css',
-  'jquery',
-  ...
-];
-
-...
-
-System.config({
-  map: {
-      'ng2-pickadate': 'vendor/ng2-pickadate',
-      'jquery': 'vendor/jquery',
-      'datepicker': 'vendor/materialize-css/js/date_picker'
-      ...
-       },
-  packages: cliSystemConfigPackages
-});
-```
-
-angular-cli-build.js
-```typescript
-    vendorNpmFiles: [
-      'ng2-pickadate/**/*.+(js|css|html)',
-      'materialize-css/js/date_picker/**/*.js',
-      'jquery/**/*.js',
-      ...
-    ]
-```
+* [Angular CLI Configuration (SystemJS)](./docs/angular-cli.md)
