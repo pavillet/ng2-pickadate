@@ -1,0 +1,11 @@
+<form [formGroup]="form">
+  <pre>{{ form.value | json }}</pre>
+  <ng2-pickadate
+    formControlName="date"
+    [min]="min"
+    (open)="onOpen()"
+    (close)="onClose()"
+    (select)="onSelect($event)">
+  </ng2-pickadate>
+</form>
+
