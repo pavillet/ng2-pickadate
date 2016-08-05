@@ -1,6 +1,22 @@
 <!doctype html>
 <html>
 <head>
+    <!-- This stores the URL the user was attempting to go to in sessionStorage, and then redirects all 404 responses to the app’s index.html page -->
+    <!-- See http://www.backalleycoder.com/2016/05/13/sghpa-the-single-page-app-hack-for-github-pages/ -->
+    <script>
+        sessionStorage.redirect = location.href;
+    </script>
+    <meta http-equiv="refresh" content="0;URL='https://cschroeter.github.io/ng2-pickadate/'"/>
+    <script>
+        // See http://www.backalleycoder.com/2016/05/13/sghpa-the-single-page-app-hack-for-github-pages/
+        (function () {
+            var redirect = sessionStorage.redirect;
+            delete sessionStorage.redirect;
+            if (redirect && redirect != location.href) {
+                history.replaceState(null, null, redirect);
+            }
+        })();
+    </script>
     <meta charset="utf-8">
     <title>ng2-pickadate</title>
     <base href="/ng2-pickadate/">
@@ -14,29 +30,8 @@
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/pickadate.js/3.5.6/compressed/themes/default.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/pickadate.js/3.5.6/compressed/themes/default.date.css" rel="stylesheet">
-      <style type="text/css">
-    body:before {
-      content: attr(message);
-    }
-  </style>
 </head>
 <body>
-    <script>
-    (function(){
-      var redirect = sessionStorage.redirect;
-      delete sessionStorage.redirect;
-      if (redirect && redirect != location.href) {
-        history.replaceState(null, null, redirect);
-        // REMOVE THIS - just showing the redirect route in the UI
-        document.body.setAttribute('message', 'This page was redirected by 404.html, from the route: ' + redirect);
-      }
-      else {
-        // REMOVE THIS - just showing the redirect route in the UI
-        document.body.setAttribute('message', 'This page was loaded directly from the index.html file');
-      }
-    })();
-  </script>
-  
 <app-root>Loading...</app-root>
 
 <script src="vendor/es6-shim/es6-shim.js"></script>
