@@ -30,7 +30,8 @@
   },
   "scripts": {
     "watch": "tsc -w",
-    "build": "rm -rf lib && tsc"
+    "build": "rm -rf lib && tsc",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
   },
   "dependencies": {
     "jquery": "^2.2.4",

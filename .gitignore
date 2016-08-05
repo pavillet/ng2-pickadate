@@ -8,13 +8,9 @@ build.xml
 node_modules/*
 npm-debug.log
 coverage
-*.js
-*.js.map
 !system.config.js
 !karma.conf.js
 !karma-test-shim.js
-*.map
-*.d.ts
 !make.js
 !bundles/*.js
 
@@ -43,3 +39,5 @@ Desktop.ini
 
 # Mac crap
 .DS_Store
+
+src/typings
