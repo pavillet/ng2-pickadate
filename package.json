@@ -1,6 +1,6 @@
 {
   "name": "ng2-pickadate",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "An Angular2 date picker based on pickadate.js",
   "keywords": [
     "angular",
