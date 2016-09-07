@@ -1,9 +1,7 @@
 /// <reference types="pickadate" />
 import { ElementRef, AfterViewInit, OnDestroy, EventEmitter } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, Validator } from '@angular/forms';
-import 'pickadate/lib/picker';
-import 'pickadate/lib/picker.date';
-export declare class Ng2Pickadate implements AfterViewInit, OnDestroy, ControlValueAccessor, Validator {
+import { AbstractControl, ControlValueAccessor } from '@angular/forms';
+export declare class PickadateComponent implements AfterViewInit, OnDestroy, ControlValueAccessor {
     format: string;
     min: Pickadate.MinOrMaxDateOption;
     max: Pickadate.MinOrMaxDateOption;

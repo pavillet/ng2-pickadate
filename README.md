@@ -12,22 +12,21 @@ See the [changelog](./CHANGELOG.md) for more information.
 
  ```typescript
 import { Component } from '@angular/core';
-import { Ng2Pickadate } from 'ng2-pickadate/ng2-pickadate';
- 
- @Component({
-   selector: 'my-app',
-   template: `<ng2-pickadate [min]="minDate" (select)="onSelect($event)"></ng2-pickadate>`,
-   directives: [Ng2Pickadate]
- })
- export class MyAppComponent {
-     public minDate: Date = new Date();
-     
-     public onSelect(timestamp): void {
-         console.log(timestamp)
-     }
- }
+
+@Component({
+    selector: 'my-app',
+    template: `<ng2-pickadate [min]="minDate" (select)="onSelect($event)"></ng2-pickadate>`
+})
+export class AppComponent {
+    public minDate: Date = new Date();
+
+    public onSelect(timestamp): void {
+        console.log(timestamp)
+    }
+}
  
  ```
+ Remind binding components and modules with NgModule (explained in [Angular CLI Configuration](./docs/angular-cli.md))
 
 
 ### Requirements
@@ -39,7 +38,7 @@ import { Ng2Pickadate } from 'ng2-pickadate/ng2-pickadate';
 
 ### Installation
 
-* [Angular CLI Configuration (SystemJS)](./docs/angular-cli.md)
+* [Bind ng2-Pickadate to Angular](./docs/angular-cli.md)
 
 
 ### Themes

@@ -1,18 +1,15 @@
-import { Component, forwardRef, ElementRef, ViewChild, Input, AfterViewInit, OnDestroy, Output, EventEmitter } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, Validator, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
-import * as $ from 'jquery';
-import 'pickadate/lib/picker';
-import 'pickadate/lib/picker.date';
+import { Component, ElementRef, ViewChild, Input, AfterViewInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { AbstractControl, ControlValueAccessor } from '@angular/forms';
+
+declare var require: any;
+window['picker'] = require('pickadate/lib/picker');
+require('pickadate/lib/picker.date');
 
 @Component({
     selector: 'ng2-pickadate',
-    template: `<input type="text" #input />`,
-    providers: [
-        {provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => Ng2Pickadate), multi: true},
-        {provide: NG_VALIDATORS, useExisting: forwardRef(() => Ng2Pickadate), multi: true}
-    ]
+    template: `<input type="text" #input />`
 })
-export class Ng2Pickadate implements AfterViewInit, OnDestroy, ControlValueAccessor, Validator {
+export class PickadateComponent implements AfterViewInit, OnDestroy, ControlValueAccessor {
 
     @Input() public format: string = 'yyyy.mm.dd';
     @Input() public min: Pickadate.MinOrMaxDateOption;

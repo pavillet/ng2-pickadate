@@ -1,1 +1,1 @@
-export * from './src/ng2-pickadate';
+export * from './src/ng2-pickadate.module';
