@@ -1,5 +1,11 @@
+<a name="0.3.17"></a>
+## [0.3.17](https://github.com/cschroeter/ng2-pickadate/compare/0.3.1...v0.3.17) (2016-09-08)
+
+### BREAKING CHANGES
+* Update Angular Version to RC6
+
 <a name="0.3.1"></a>
-## [0.3.1](https://github.com/cschroeter/ng2-pickadate/compare/0.3.0...v0.3.1) (2016-08-27)
+## [0.3.1](https://github.com/cschroeter/ng2-pickadate/compare/0.3.0...0.3.1) (2016-08-27)
 
 
 
