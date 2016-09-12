@@ -1,10 +1,13 @@
 /// <reference types="pickadate" />
-import { ElementRef, AfterViewInit, OnDestroy, EventEmitter } from '@angular/core';
-import { AbstractControl, ControlValueAccessor } from '@angular/forms';
+import { ElementRef, AfterViewInit, OnDestroy, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { AbstractControl, ControlValueAccessor, FormControl } from '@angular/forms';
 export declare class PickadateComponent implements AfterViewInit, OnDestroy, ControlValueAccessor {
     format: string;
+    formControlName: FormControl;
+    disable: Pickadate.DateItem[];
     min: Pickadate.MinOrMaxDateOption;
     max: Pickadate.MinOrMaxDateOption;
+    placeholder: string;
     onOpen: EventEmitter<void>;
     onClose: EventEmitter<void>;
     onSelect: EventEmitter<Date>;
