@@ -1,25 +1,22 @@
 import {
-    Component, ElementRef, ViewChild, Input, AfterViewInit, OnDestroy, Output, EventEmitter,
-    forwardRef, ChangeDetectorRef
+    ElementRef, Input, AfterViewInit, OnDestroy, Output, EventEmitter,
+    forwardRef, Directive, HostListener
 } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
+import { AbstractControl, ControlValueAccessor, NG_VALIDATORS } from '@angular/forms';
 
 declare var require: any;
 window['picker'] = require('pickadate/lib/picker');
 require('pickadate/lib/picker.date');
 
-@Component({
-    selector: 'ng2-pickadate',
+@Directive({
+    selector: '[ng2-pickadate]',
     providers: [
-        {provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => PickadateComponent), multi: true},
         {provide: NG_VALIDATORS, useExisting: forwardRef(() => PickadateComponent), multi: true}
-    ],
-    template: `<input type="text" #input/>`
+    ]
 })
 export class PickadateComponent implements AfterViewInit, OnDestroy, ControlValueAccessor {
 
     @Input() public format: string = 'yyyy.mm.dd';
-    @Input() public formControlName: FormControl;
     @Input() public disable: Pickadate.DateItem[] = [];
     @Input() public min: Pickadate.MinOrMaxDateOption;
     @Input() public max: Pickadate.MinOrMaxDateOption;
@@ -29,7 +26,7 @@ export class PickadateComponent implements AfterViewInit, OnDestroy, ControlValu
     @Output('close') public onClose: EventEmitter<void> = new EventEmitter<void>();
     @Output('select') public onSelect: EventEmitter<Date> = new EventEmitter<Date>();
 
-    @ViewChild('input') input: ElementRef;
+    private input: HTMLElement;
 
     private onChange: any = Function.prototype;
     private onTouched: any = Function.prototype;
@@ -38,8 +35,18 @@ export class PickadateComponent implements AfterViewInit, OnDestroy, ControlValu
     private date: string;
     private datepicker: Pickadate.DatePicker;
 
+    constructor(private el: ElementRef) {
+    }
+
+    @HostListener('click', ['$event'])
+    public onClick(event) {
+        event.stopPropagation();
+        this.datepicker.open();
+    }
+
     public ngAfterViewInit(): any {
-        let picker: JQuery = $(this.input.nativeElement).pickadate(this.options);
+        this.assignGivenInputElement();
+        let picker: JQuery = $(this.el.nativeElement).pickadate(this.options);
         this.datepicker = picker.pickadate('picker');
 
         if (this.date) {
@@ -47,7 +54,7 @@ export class PickadateComponent implements AfterViewInit, OnDestroy, ControlValu
         }
 
         if (this.placeholder) {
-            this.input.nativeElement.placeholder = this.placeholder;
+            this.el.nativeElement.placeholder = this.placeholder;
         }
 
         this.datepicker.on('open', () => {
@@ -81,6 +88,19 @@ export class PickadateComponent implements AfterViewInit, OnDestroy, ControlValu
     public validate(c: AbstractControl): {} {
         return this.validateFn(c);
     }
+
+    private assignGivenInputElement(): void {
+        if (this.el.nativeElement.tagName === 'INPUT') {
+            this.input = this.el.nativeElement;
+        } else {
+            this.input = this.findGivenInputElement();
+        }
+    }
+
+    private findGivenInputElement(): HTMLElement {
+        return this.el.nativeElement.getElementsByTagName('input')[0];
+    }
+
 
     get options(): Pickadate.DateOptions {
         return {

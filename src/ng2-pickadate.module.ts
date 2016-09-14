@@ -1,13 +1,12 @@
-import { NgModule, forwardRef } from '@angular/core';
-import { FormsModule, NG_VALUE_ACCESSOR, NG_VALIDATORS, ReactiveFormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { PickadateComponent } from './ng2-pickadate.component';
 import { CommonModule } from "@angular/common";
 
 @NgModule({
     imports: [
         CommonModule,
-        ReactiveFormsModule,
-        FormsModule
+        ReactiveFormsModule
     ],
     declarations: [
         PickadateComponent
