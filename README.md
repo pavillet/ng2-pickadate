@@ -15,7 +15,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'my-app',
-    template: `<ng2-pickadate [min]="minDate" (select)="onSelect($event)"></ng2-pickadate>`
+    template: `<input type="text" [min]="minDate" (select)="onSelect($event)" ng2-pickadate>`
 })
 export class AppComponent {
     public minDate: Date = new Date();
