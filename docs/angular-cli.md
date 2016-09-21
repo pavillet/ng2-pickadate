@@ -25,4 +25,4 @@ export class AppModule {
 ### JQuery
 If jQuery is not defined provide it using:
 
-`window['$'] = require('jquery');`
+`window['$'] = require('jquery/dist/jquery');
