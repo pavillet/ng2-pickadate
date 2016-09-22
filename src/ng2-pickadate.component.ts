@@ -5,8 +5,8 @@ import {
 import { AbstractControl, ControlValueAccessor, NG_VALIDATORS } from '@angular/forms';
 
 declare var require: any;
-window['picker'] = require('pickadate/lib/picker');
-require('pickadate/lib/picker.date');
+window['picker'] = require('./shared/picker');
+require('./shared/picker.date');
 
 @Directive({
     selector: '[ng2-pickadate]',
