@@ -1,5 +1,20 @@
+<a name="0.3.18"></a>
+## [0.3.18](https://github.com/cschroeter/ng2-pickadate/compare/0.3.17...0.3.18) (2016-09-22)
+
+
+### Bug Fixes
+
+* use ng2-pickadate as a directive instead of a component, that the datepicker may be used on different components ([b792a1e](https://github.com/cschroeter/ng2-pickadate/commit/b792a1e))
+* workaround to use datepicker until the webpack-configuration could be modified ([e60f98b](https://github.com/cschroeter/ng2-pickadate/commit/e60f98b))
+
+
+### Features
+
+* implement disable-date, placeholder properties and formControl ([18c8fe6](https://github.com/cschroeter/ng2-pickadate/commit/18c8fe6))
+
+
 <a name="0.3.17"></a>
-## [0.3.17](https://github.com/cschroeter/ng2-pickadate/compare/0.3.1...v0.3.17) (2016-09-08)
+## [0.3.17](https://github.com/cschroeter/ng2-pickadate/compare/0.3.1...0.3.17) (2016-09-08)
 
 ### BREAKING CHANGES
 * Update Angular Version to RC6
