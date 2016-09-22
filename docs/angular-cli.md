@@ -30,12 +30,3 @@ If jQuery is not defined provide it using:
 ```js
 window['$'] = require('jquery/dist/jquery');
 ```
-
-### pickadateJS
-Until angular-cli allows the modification of the webpack configuration, you should add an alias to the file `angular-cli/addon/ng2/models/webpack-build-common.ts` ([due to the contributor of pickadate](https://github.com/amsul/pickadate.js/issues/870)), that webpack can recognize the picker-lib:
-
-```json
-resolve: {
-  alias: { 'picker': 'pickadate/lib/picker' }
-}
-```
