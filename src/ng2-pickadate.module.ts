@@ -1,18 +1,19 @@
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
-import { PickadateComponent } from './ng2-pickadate.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { PickadateDirective } from './ng2-pickadate.component';
 import { CommonModule } from "@angular/common";
 
 @NgModule({
     imports: [
         CommonModule,
+        FormsModule,
         ReactiveFormsModule
     ],
     declarations: [
-        PickadateComponent
+        PickadateDirective
     ],
     exports: [
-        PickadateComponent
+        PickadateDirective
     ]
 })
 export class PickadateModule {

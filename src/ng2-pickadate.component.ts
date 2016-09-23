@@ -1,8 +1,8 @@
 import {
-    ElementRef, Input, AfterViewInit, OnDestroy, Output, EventEmitter,
-    forwardRef, Directive, HostListener
+    Directive, ElementRef, forwardRef, Input, Output, AfterViewInit,
+    OnDestroy, EventEmitter
 } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, NG_VALIDATORS } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 declare var require: any;
 window['picker'] = require('./shared/picker');
@@ -11,26 +11,26 @@ require('./shared/picker.date');
 @Directive({
     selector: '[ng2-pickadate]',
     providers: [
-        {provide: NG_VALIDATORS, useExisting: forwardRef(() => PickadateComponent), multi: true}
+        {provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => PickadateDirective), multi: true}
     ]
 })
-export class PickadateComponent implements AfterViewInit, OnDestroy, ControlValueAccessor {
+export class PickadateDirective implements AfterViewInit, OnDestroy, ControlValueAccessor {
 
     @Input() public format: string = 'yyyy.mm.dd';
     @Input() public disable: Pickadate.DateItem[] = [];
     @Input() public min: Pickadate.MinOrMaxDateOption;
     @Input() public max: Pickadate.MinOrMaxDateOption;
     @Input() public placeholder: string;
+    @Input('ng2-pickadate') _inputValue: string = '';
 
     @Output('open') public onOpen: EventEmitter<void> = new EventEmitter<void>();
     @Output('close') public onClose: EventEmitter<void> = new EventEmitter<void>();
     @Output('select') public onSelect: EventEmitter<Date> = new EventEmitter<Date>();
 
-    private input: HTMLElement;
+    private input: HTMLInputElement;
 
-    private onChange: any = Function.prototype;
-    private onTouched: any = Function.prototype;
-    private validateFn: any = (c: AbstractControl) => {};
+    private propagateChange: any = () => {
+    };
 
     private date: string;
     private datepicker: Pickadate.DatePicker;
@@ -38,15 +38,11 @@ export class PickadateComponent implements AfterViewInit, OnDestroy, ControlValu
     constructor(private el: ElementRef) {
     }
 
-    @HostListener('click', ['$event'])
-    public onClick(event) {
-        event.stopPropagation();
-        this.datepicker.open();
-    }
-
     public ngAfterViewInit(): any {
         this.assignGivenInputElement();
-        let picker: JQuery = $(this.el.nativeElement).pickadate(this.options);
+        this.input.value = this.inputValue.toString();
+
+        let picker: JQuery = $(this.input).pickadate(this.options);
         this.datepicker = picker.pickadate('picker');
 
         if (this.date) {
@@ -58,13 +54,13 @@ export class PickadateComponent implements AfterViewInit, OnDestroy, ControlValu
         }
 
         this.datepicker.on('open', () => {
-            this.onTouched();
             this.onOpen.emit(null)
         });
         this.datepicker.on('close', () => this.onClose.emit(null));
 
         this.datepicker.on('set', (value) => {
-            this.onChange(value.select);
+            this.inputValue = value.select;
+            this.assignValueFromHostInput();
             this.onSelect.emit(value.select);
         });
     }
@@ -73,20 +69,32 @@ export class PickadateComponent implements AfterViewInit, OnDestroy, ControlValu
         this.datepicker.off('open', 'close', 'set');
     }
 
-    public writeValue(value: string): void {
-        this.date = value;
+    writeValue(value: string) {
+        if (value) {
+            this.inputValue = value;
+        }
     }
 
-    public registerOnChange(fn: (_: any) => {}): void {
-        this.onChange = fn;
+    registerOnChange(fn) {
+        this.propagateChange = fn;
     }
 
-    public registerOnTouched(fn: () => {}): void {
-        this.onTouched = fn;
+    registerOnTouched() {
     }
 
-    public validate(c: AbstractControl): {} {
-        return this.validateFn(c);
+    assignValueFromHostInput() {
+        let inputVal: string = (<HTMLInputElement> this.el.nativeElement).value;
+        this.inputValue = inputVal;
+        (<HTMLInputElement> this.el.nativeElement).value = inputVal;
+    }
+
+    get inputValue() {
+        return this._inputValue;
+    }
+
+    set inputValue(val: string) {
+        this._inputValue = val;
+        this.propagateChange(val);
     }
 
     private assignGivenInputElement(): void {
@@ -97,7 +105,7 @@ export class PickadateComponent implements AfterViewInit, OnDestroy, ControlValu
         }
     }
 
-    private findGivenInputElement(): HTMLElement {
+    private findGivenInputElement(): HTMLInputElement {
         return this.el.nativeElement.getElementsByTagName('input')[0];
     }
 
@@ -110,5 +118,4 @@ export class PickadateComponent implements AfterViewInit, OnDestroy, ControlValu
             max: this.max
         }
     }
-
 }
