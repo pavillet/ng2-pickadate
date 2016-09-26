@@ -9,7 +9,7 @@ window['picker'] = require('./shared/picker');
 require('./shared/picker.date');
 
 @Directive({
-    selector: '[ng2-pickadate]',
+    selector: '[ng2Pickadate]',
     providers: [
         {provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => PickadateDirective), multi: true}
     ]
@@ -21,7 +21,7 @@ export class PickadateDirective implements AfterViewInit, OnDestroy, ControlValu
     @Input() public min: Pickadate.MinOrMaxDateOption;
     @Input() public max: Pickadate.MinOrMaxDateOption;
     @Input() public placeholder: string;
-    @Input('ng2-pickadate') _inputValue: string = '';
+    @Input('ng2Pickadate') _inputValue: string = '';
 
     @Output('open') public onOpen: EventEmitter<void> = new EventEmitter<void>();
     @Output('close') public onClose: EventEmitter<void> = new EventEmitter<void>();
