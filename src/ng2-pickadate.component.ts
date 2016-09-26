@@ -1,12 +1,12 @@
+declare var require: any;
 import {
-    Directive, HostListener, ElementRef, forwardRef, Input, Output, AfterViewInit,
-    OnDestroy, EventEmitter
+    Directive, HostListener, ElementRef, forwardRef, Input, Output,
+    AfterViewInit, OnDestroy, EventEmitter
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-declare var require: any;
 window['picker'] = require('./shared/picker');
-require('./shared/picker.date');
+import './shared/picker.date';
 
 @Directive({
     selector: '[ng2Pickadate]',
@@ -32,7 +32,6 @@ export class PickadateDirective implements AfterViewInit, OnDestroy, ControlValu
     private propagateChange: any = () => {
     };
 
-    private date: string;
     private datepicker: Pickadate.DatePicker;
     @HostListener('click', ['$event'])
     onClick(event) {
@@ -44,34 +43,24 @@ export class PickadateDirective implements AfterViewInit, OnDestroy, ControlValu
     constructor(private el: ElementRef) {
     }
 
-    public ngAfterViewInit(): any {
-        this.assignGivenInputElement();
-        this.input.value = this.inputValue.toString();
+    ngAfterViewInit(): any {
+        this.input = this.findInputElementInHost();
+        if (this.placeholder) {
+            this.input.placeholder = this.placeholder;
+        }
 
         let picker: JQuery = $(this.input).pickadate(this.options);
         this.datepicker = picker.pickadate('picker');
 
-        if (this.date) {
-            this.datepicker.set('select', this.date, {format: this.format});
+        if (this.inputValue) {
+            this.input.value = this.inputValue.toString();
+            this.datepicker.set('select', this.inputValue.toString(), {format: this.format});
         }
 
-        if (this.placeholder) {
-            this.el.nativeElement.placeholder = this.placeholder;
-        }
-
-        this.datepicker.on('open', () => {
-            this.onOpen.emit(null)
-        });
-        this.datepicker.on('close', () => this.onClose.emit(null));
-
-        this.datepicker.on('set', (value) => {
-            this.inputValue = value.select;
-            this.assignValueFromHostInput();
-            this.onSelect.emit(value.select);
-        });
+        this.initializePickadateListeners();
     }
 
-    public ngOnDestroy(): void {
+    ngOnDestroy(): void {
         this.datepicker.off('open', 'close', 'set');
     }
 
@@ -88,10 +77,24 @@ export class PickadateDirective implements AfterViewInit, OnDestroy, ControlValu
     registerOnTouched() {
     }
 
-    assignValueFromHostInput() {
-        let inputVal: string = (<HTMLInputElement> this.el.nativeElement).value;
-        this.inputValue = inputVal;
-        (<HTMLInputElement> this.el.nativeElement).value = inputVal;
+    private findInputElementInHost(): HTMLInputElement {
+        if (this.el.nativeElement.tagName === 'INPUT') {
+            return this.el.nativeElement;
+        } else {
+            return this.el.nativeElement.getElementsByTagName('input')[0];
+        }
+    }
+
+    private initializePickadateListeners() {
+        this.datepicker.on('open', () => {
+            this.onOpen.emit(null)
+        });
+        this.datepicker.on('close', () => this.onClose.emit(null));
+
+        this.datepicker.on('set', (value) => {
+            this.inputValue = (<HTMLInputElement> this.el.nativeElement).value;
+            this.onSelect.emit(value);
+        });
     }
 
     get inputValue() {
@@ -100,21 +103,9 @@ export class PickadateDirective implements AfterViewInit, OnDestroy, ControlValu
 
     set inputValue(val: string) {
         this._inputValue = val;
+        //noinspection TypeScriptValidateTypes
         this.propagateChange(val);
     }
-
-    private assignGivenInputElement(): void {
-        if (this.el.nativeElement.tagName === 'INPUT') {
-            this.input = this.el.nativeElement;
-        } else {
-            this.input = this.findGivenInputElement();
-        }
-    }
-
-    private findGivenInputElement(): HTMLInputElement {
-        return this.el.nativeElement.getElementsByTagName('input')[0];
-    }
-
 
     get options(): Pickadate.DateOptions {
         return {
