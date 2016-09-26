@@ -1,5 +1,5 @@
 import {
-    Directive, ElementRef, forwardRef, Input, Output, AfterViewInit,
+    Directive, HostListener, ElementRef, forwardRef, Input, Output, AfterViewInit,
     OnDestroy, EventEmitter
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -34,6 +34,12 @@ export class PickadateDirective implements AfterViewInit, OnDestroy, ControlValu
 
     private date: string;
     private datepicker: Pickadate.DatePicker;
+    @HostListener('click', ['$event'])
+    onClick(event) {
+        event.stopPropagation();
+        this.datepicker.open();
+    }
+
 
     constructor(private el: ElementRef) {
     }
