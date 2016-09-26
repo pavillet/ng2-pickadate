@@ -1,5 +1,25 @@
+<a name="0.3.19"></a>
+## [0.3.19](https://github.com/cschroeter/ng2-pickadate/compare/0.3.18...0.3.19) (2016-09-26)
+
+
+### Bug Fixes
+
+* recognize input changes from datepicker and synchronize it with the ng-form ([55c0628](https://github.com/cschroeter/ng2-pickadate/commit/55c0628))
+
+
+### Chores
+
+* rename directive-selector to conventional standard ([339ba4e](https://github.com/cschroeter/ng2-pickadate/commit/339ba4e))
+
+
+### BREAKING CHANGES
+
+* rename directive-selector from ng2-pickadate to angular conventional ng2Pickadate
+
+
+
 <a name="0.3.18"></a>
-## [0.3.18](https://github.com/cschroeter/ng2-pickadate/compare/0.3.17...0.3.18) (2016-09-22)
+## [0.3.18](https://github.com/cschroeter/ng2-pickadate/compare/0.3.1...0.3.18) (2016-09-22)
 
 
 ### Bug Fixes
@@ -13,11 +33,6 @@
 * implement disable-date, placeholder properties and formControl ([18c8fe6](https://github.com/cschroeter/ng2-pickadate/commit/18c8fe6))
 
 
-<a name="0.3.17"></a>
-## [0.3.17](https://github.com/cschroeter/ng2-pickadate/compare/0.3.1...0.3.17) (2016-09-08)
-
-### BREAKING CHANGES
-* Update Angular Version to RC6
 
 <a name="0.3.1"></a>
 ## [0.3.1](https://github.com/cschroeter/ng2-pickadate/compare/0.3.0...0.3.1) (2016-08-27)
