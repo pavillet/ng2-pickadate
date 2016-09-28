@@ -4,7 +4,7 @@
  */
 
 (function (factory) {
-    module.exports = factory(require('./picker.js'), require('jquery'))
+    module.exports = factory(require('./picker.js'), require('../../../jquery'))
 }(function (Picker, $) {
 
 
