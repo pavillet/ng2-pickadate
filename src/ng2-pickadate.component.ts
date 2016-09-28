@@ -1,7 +1,7 @@
 declare var require: any;
 import {
     Directive, HostListener, ElementRef, forwardRef, Input, Output,
-    AfterViewInit, OnDestroy, EventEmitter
+    AfterViewInit, OnDestroy, EventEmitter, ChangeDetectorRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -40,7 +40,7 @@ export class PickadateDirective implements AfterViewInit, OnDestroy, ControlValu
     }
 
 
-    constructor(private el: ElementRef) {
+    constructor(private el: ElementRef, private cd: ChangeDetectorRef) {
     }
 
     ngAfterViewInit(): any {
@@ -105,6 +105,7 @@ export class PickadateDirective implements AfterViewInit, OnDestroy, ControlValu
         this._inputValue = val;
         //noinspection TypeScriptValidateTypes
         this.propagateChange(val);
+        this.cd.markForCheck();
     }
 
     get options(): Pickadate.DateOptions {
