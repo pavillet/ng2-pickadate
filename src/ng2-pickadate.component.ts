@@ -33,6 +33,8 @@ export class PickadateDirective implements AfterViewInit, OnDestroy, ControlValu
     };
 
     private datepicker: Pickadate.DatePicker;
+    private pickerInitialized: boolean = false;
+
     @HostListener('click', ['$event'])
     onClick(event) {
         event.stopPropagation();
@@ -58,6 +60,25 @@ export class PickadateDirective implements AfterViewInit, OnDestroy, ControlValu
         }
 
         this.initializePickadateListeners();
+        this.pickerInitialized = true;
+    }
+
+    ngOnChanges() {
+        if (!this.pickerInitialized) {
+            return;
+        }
+
+        if (this.min != null) {
+            this.datepicker.set('min', this.min);
+        }
+
+        if (this.max != null) {
+            this.datepicker.set('max', this.max);
+        }
+
+        if (this.disable != null) {
+            this.datepicker.set('disabled', this.disable);
+        }
     }
 
     ngOnDestroy(): void {
@@ -65,8 +86,14 @@ export class PickadateDirective implements AfterViewInit, OnDestroy, ControlValu
     }
 
     writeValue(value: string) {
-        if (value) {
+        if(!this.pickerInitialized){
             this.inputValue = value;
+            return;
+        }
+        if (value) {
+            this.datepicker.set('select', value, {format: this.format});
+        } else {
+            this.datepicker.clear();
         }
     }
 
@@ -103,6 +130,9 @@ export class PickadateDirective implements AfterViewInit, OnDestroy, ControlValu
 
     set inputValue(val: string) {
         this._inputValue = val;
+        if (this.input != null) {
+            this.input.value = val;
+        }
         //noinspection TypeScriptValidateTypes
         this.propagateChange(val);
         this.cd.markForCheck();
