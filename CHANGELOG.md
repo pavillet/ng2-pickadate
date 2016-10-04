@@ -1,3 +1,17 @@
+<a name="0.3.20"></a>
+## [0.3.20](https://github.com/cschroeter/ng2-pickadate/compare/0.3.19...v0.3.20) (2016-10-04)
+
+
+### Bug Fixes
+
+* add click-listener, that click event is catched for encapsulated input-components ([9b2123a](https://github.com/cschroeter/ng2-pickadate/commit/9b2123a))
+* bind datepicker attributes to angular model for detecting changes ([28abbd5](https://github.com/cschroeter/ng2-pickadate/commit/28abbd5))
+* change build-script , to maintain the shared-folder including pickadate-files as well ([a933f46](https://github.com/cschroeter/ng2-pickadate/commit/a933f46)), closes [#6](https://github.com/cschroeter/ng2-pickadate/issues/6)
+* change require-path for jquery, that it could be find in node_modules directory ([1250aa8](https://github.com/cschroeter/ng2-pickadate/commit/1250aa8))
+* trigger change detectiton after changing value, to set it instantly to angular's form control ([f4da96d](https://github.com/cschroeter/ng2-pickadate/commit/f4da96d))
+
+
+
 <a name="0.3.19"></a>
 ## [0.3.19](https://github.com/cschroeter/ng2-pickadate/compare/0.3.18...0.3.19) (2016-09-26)
 
