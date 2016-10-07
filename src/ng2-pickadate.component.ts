@@ -17,7 +17,7 @@ import './shared/picker.date';
 export class PickadateDirective implements AfterViewInit, OnDestroy, ControlValueAccessor {
 
     @Input() public format: string = 'yyyy.mm.dd';
-    @Input() public disable: Pickadate.DateItem[] = [];
+    @Input() public disable: any = {};
     @Input() public min: Pickadate.MinOrMaxDateOption;
     @Input() public max: Pickadate.MinOrMaxDateOption;
     @Input() public placeholder: string;
@@ -56,7 +56,7 @@ export class PickadateDirective implements AfterViewInit, OnDestroy, ControlValu
 
         if (this.inputValue) {
             this.input.value = this.inputValue.toString();
-            this.datepicker.set('select', this.inputValue.toString(), {format: this.format});
+            this.setPickadateValue(this.inputValue.toString());
         }
 
         this.initializePickadateListeners();
@@ -77,7 +77,7 @@ export class PickadateDirective implements AfterViewInit, OnDestroy, ControlValu
         }
 
         if (this.disable != null) {
-            this.datepicker.set('disabled', this.disable);
+            this.datepicker.set('disable', this.disable);
         }
     }
 
@@ -86,12 +86,12 @@ export class PickadateDirective implements AfterViewInit, OnDestroy, ControlValu
     }
 
     writeValue(value: string) {
-        if(!this.pickerInitialized){
-            this.inputValue = value;
+        this.inputValue = value;
+        if (!this.pickerInitialized) {
             return;
         }
         if (value) {
-            this.datepicker.set('select', value, {format: this.format});
+            this.setPickadateValue(value);
         } else {
             this.datepicker.clear();
         }
@@ -136,6 +136,10 @@ export class PickadateDirective implements AfterViewInit, OnDestroy, ControlValu
         //noinspection TypeScriptValidateTypes
         this.propagateChange(val);
         this.cd.markForCheck();
+    }
+
+    private setPickadateValue(val: string) {
+        this.datepicker.set('select', val, {format: this.format});
     }
 
     get options(): Pickadate.DateOptions {
