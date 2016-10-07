@@ -1,3 +1,8 @@
+<a name="0.3.23"></a>
+## [0.3.23](https://github.com/cschroeter/ng2-pickadate/compare/0.3.22...v0.3.23) (2016-10-07)
+
+
+
 <a name="0.3.22"></a>
 ## [0.3.22](https://github.com/cschroeter/ng2-pickadate/compare/0.3.20...0.3.22) (2016-10-07)
 
