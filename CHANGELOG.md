@@ -1,5 +1,20 @@
+<a name="0.3.22"></a>
+## [0.3.22](https://github.com/cschroeter/ng2-pickadate/compare/0.3.20...0.3.22) (2016-10-07)
+
+
+### Bug Fixes
+
+*  recognize changes by setting disabled-dates and the initial value ([add8a87](https://github.com/cschroeter/ng2-pickadate/commit/add8a87))
+
+
+### Features
+
+* add readonly feature to disable date selection and modification ([9b90449](https://github.com/cschroeter/ng2-pickadate/commit/9b90449))
+
+
+
 <a name="0.3.20"></a>
-## [0.3.20](https://github.com/cschroeter/ng2-pickadate/compare/0.3.19...v0.3.20) (2016-10-04)
+## [0.3.20](https://github.com/cschroeter/ng2-pickadate/compare/0.3.19...0.3.20) (2016-10-04)
 
 
 ### Bug Fixes
