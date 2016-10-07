@@ -18,6 +18,7 @@ export class PickadateDirective implements AfterViewInit, OnDestroy, ControlValu
 
     @Input() public format: string = 'yyyy.mm.dd';
     @Input() public disable: any = {};
+    @Input() public inputDisabled: boolean = false;
     @Input() public min: Pickadate.MinOrMaxDateOption;
     @Input() public max: Pickadate.MinOrMaxDateOption;
     @Input() public placeholder: string;
@@ -59,6 +60,10 @@ export class PickadateDirective implements AfterViewInit, OnDestroy, ControlValu
             this.setPickadateValue(this.inputValue.toString());
         }
 
+        if(this.inputDisabled){
+            this.input.disabled = true;
+            this.input.readOnly = true;
+        }
         this.initializePickadateListeners();
         this.pickerInitialized = true;
     }
@@ -68,12 +73,14 @@ export class PickadateDirective implements AfterViewInit, OnDestroy, ControlValu
             return;
         }
 
-        if (this.min != null) {
-            this.datepicker.set('min', this.min);
-        }
+        if(!this.inputDisabled) {
+            if (this.min != null) {
+                this.datepicker.set('min', this.min);
+            }
 
-        if (this.max != null) {
-            this.datepicker.set('max', this.max);
+            if (this.max != null) {
+                this.datepicker.set('max', this.max);
+            }
         }
 
         if (this.disable != null) {
@@ -145,9 +152,7 @@ export class PickadateDirective implements AfterViewInit, OnDestroy, ControlValu
     get options(): Pickadate.DateOptions {
         return {
             disable: this.disable,
-            format: this.format,
-            min: this.min,
-            max: this.max
+            format: this.format
         }
     }
 }
