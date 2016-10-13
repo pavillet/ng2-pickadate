@@ -83,7 +83,7 @@ export class PickadateDirective implements AfterViewInit, OnDestroy, ControlValu
             }
         }
 
-        if (this.disable != null) {
+        if (this.disable != null && this.disable !== {} ) {
             this.datepicker.set('disable', this.disable);
         }
     }
