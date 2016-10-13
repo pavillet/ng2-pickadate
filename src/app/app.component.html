@@ -1,0 +1,8 @@
+<div [formGroup]="form">
+    Your selection is: {{form.value.date}} <br>
+    Date: <input type="text"
+                 formControlName="date"
+                 format="yyyy.mm.dd"
+                 [disable]="disabledDate"
+                 ng2Pickadate>
+</div>
