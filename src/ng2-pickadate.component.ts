@@ -1,21 +1,25 @@
 declare var require: any;
 import {
-    Directive, HostListener, ElementRef, forwardRef, Input, Output,
+    Component, HostListener, ElementRef, ViewChild, forwardRef, Input, Output,
     AfterViewInit, OnDestroy, EventEmitter, ChangeDetectorRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { MdInput } from '@angular/material';
 
 window['picker'] = require('./shared/picker');
 import './shared/picker.date';
 
-@Directive({
-    selector: '[ng2Pickadate]',
+@Component({
+    selector: 'ng2-pickadate',
+    template: `<md-input type="text" #inputMaterial *ngIf="design=='material'"></md-input>
+               <input type="text" #inputNormal *ngIf="design==''">`,
     providers: [
-        {provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => PickadateDirective), multi: true}
+        {provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => PickadateComponent), multi: true}
     ]
 })
-export class PickadateDirective implements AfterViewInit, OnDestroy, ControlValueAccessor {
+export class PickadateComponent implements AfterViewInit, OnDestroy, ControlValueAccessor {
 
+    @Input() public design: string = '';
     @Input() public format: string = 'yyyy.mm.dd';
     @Input() public disable: any = {};
     @Input() public inputDisabled: boolean = false;
@@ -28,6 +32,8 @@ export class PickadateDirective implements AfterViewInit, OnDestroy, ControlValu
     @Output('close') public onClose: EventEmitter<void> = new EventEmitter<void>();
     @Output('select') public onSelect: EventEmitter<Date> = new EventEmitter<Date>();
 
+    @ViewChild('inputNormal') inputRef: ElementRef;
+    @ViewChild('inputMaterial') inputRefMaterial: MdInput;
     private input: HTMLInputElement;
 
     private propagateChange: any = () => {
@@ -43,11 +49,11 @@ export class PickadateDirective implements AfterViewInit, OnDestroy, ControlValu
     }
 
 
-    constructor(private el: ElementRef, private cd: ChangeDetectorRef) {
+    constructor(private cd: ChangeDetectorRef) {
     }
 
     ngAfterViewInit(): any {
-        this.input = this.findInputElementInHost();
+        this.input = this.findInputElementInChild();
         if (this.placeholder) {
             this.input.placeholder = this.placeholder;
         }
@@ -111,11 +117,12 @@ export class PickadateDirective implements AfterViewInit, OnDestroy, ControlValu
     registerOnTouched() {
     }
 
-    private findInputElementInHost(): HTMLInputElement {
-        if (this.el.nativeElement.tagName === 'INPUT') {
-            return this.el.nativeElement;
-        } else {
-            return this.el.nativeElement.getElementsByTagName('input')[0];
+    private findInputElementInChild(): HTMLInputElement {
+        if(this.design === 'material') {
+            return this.inputRefMaterial._inputElement.nativeElement;
+        }
+        else {
+            return this.inputRef.nativeElement;
         }
     }
 
@@ -126,7 +133,7 @@ export class PickadateDirective implements AfterViewInit, OnDestroy, ControlValu
         this.datepicker.on('close', () => this.onClose.emit(null));
 
         this.datepicker.on('set', (value) => {
-            this.inputValue = (<HTMLInputElement> this.el.nativeElement).value;
+            this.inputValue = this.input.value;
             this.onSelect.emit(value);
         });
     }
