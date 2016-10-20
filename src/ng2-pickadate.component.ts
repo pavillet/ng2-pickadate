@@ -5,6 +5,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MdInput } from '@angular/material';
+import { PickadateTranslationLoader } from './pickadateTranslationLoader';
 
 window['picker'] = require('./shared/picker');
 import './shared/picker.date';
@@ -21,6 +22,7 @@ export class PickadateComponent implements AfterViewInit, OnDestroy, ControlValu
 
     @Input() public design: string = '';
     @Input() public format: string = 'yyyy.mm.dd';
+    @Input() public browserLang: string = '';
     @Input() public disable: any = {};
     @Input() public inputDisabled: boolean = false;
     @Input() public min: Pickadate.MinOrMaxDateOption;
@@ -53,6 +55,8 @@ export class PickadateComponent implements AfterViewInit, OnDestroy, ControlValu
     }
 
     ngAfterViewInit(): any {
+        new PickadateTranslationLoader(this.browserLang);
+
         this.input = this.findInputElementInChild();
         if (this.placeholder) {
             this.input.placeholder = this.placeholder;
