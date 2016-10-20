@@ -8,7 +8,7 @@ import { CommonModule } from "@angular/common";
     imports: [
         CommonModule,
         ReactiveFormsModule,
-        MaterialModule.forRoot()
+        MaterialModule
     ],
     declarations: [
         PickadateComponent

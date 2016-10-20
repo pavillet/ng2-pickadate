@@ -1,19 +1,40 @@
 declare var require: any;
 import {
-    Component, HostListener, ElementRef, ViewChild, forwardRef, Input, Output,
+    Component, ElementRef, ViewChild, forwardRef, Input, Output,
     AfterViewInit, OnDestroy, EventEmitter, ChangeDetectorRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MdInput } from '@angular/material';
 import { PickadateTranslationLoader } from './pickadateTranslationLoader';
 
+window['$'] = require('jquery/dist/jquery');
+window['jQuery'] = require('jquery/dist/jquery');
 window['picker'] = require('./shared/picker');
 import './shared/picker.date';
 
 @Component({
     selector: 'ng2-pickadate',
-    template: `<md-input type="text" #inputMaterial *ngIf="design=='material'"></md-input>
-               <input type="text" #inputNormal *ngIf="design==''">`,
+    template: `<md-input 
+                 #inputMaterial 
+                 *ngIf="design=='material'" 
+                 [value]="inputValue"
+                 [placeholder]="placeholder"></md-input>
+               <input 
+                 type="text" 
+                 #inputNormal 
+                 *ngIf="design==''"
+                 [placeholder]="placeholder" />`,
+    styles: [`
+        :host {
+            display: block;
+        }
+        input {
+            width: 100%;
+        }
+        md-input{
+            width: 100%;
+        }
+    `],
     providers: [
         {provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => PickadateComponent), multi: true}
     ]
@@ -28,7 +49,6 @@ export class PickadateComponent implements AfterViewInit, OnDestroy, ControlValu
     @Input() public min: Pickadate.MinOrMaxDateOption;
     @Input() public max: Pickadate.MinOrMaxDateOption;
     @Input() public placeholder: string;
-    @Input('ng2Pickadate') _inputValue: string = '';
 
     @Output('open') public onOpen: EventEmitter<void> = new EventEmitter<void>();
     @Output('close') public onClose: EventEmitter<void> = new EventEmitter<void>();
@@ -37,19 +57,13 @@ export class PickadateComponent implements AfterViewInit, OnDestroy, ControlValu
     @ViewChild('inputNormal') inputRef: ElementRef;
     @ViewChild('inputMaterial') inputRefMaterial: MdInput;
     private input: HTMLInputElement;
+    private _inputValue: string = '';
 
     private propagateChange: any = () => {
     };
 
     private datepicker: Pickadate.DatePicker;
     private pickerInitialized: boolean = false;
-
-    @HostListener('click', ['$event'])
-    onClick(event) {
-        event.stopPropagation();
-        this.datepicker.open();
-    }
-
 
     constructor(private cd: ChangeDetectorRef) {
     }
@@ -66,8 +80,8 @@ export class PickadateComponent implements AfterViewInit, OnDestroy, ControlValu
         this.datepicker = picker.pickadate('picker');
 
         if (this.inputValue) {
-            this.input.value = this.inputValue.toString();
-            this.setPickadateValue(this.inputValue.toString());
+            this.input.value = this.inputValue;
+            this.setPickadateValue(this.inputValue);
         }
 
         if(this.inputDisabled){
@@ -163,7 +177,10 @@ export class PickadateComponent implements AfterViewInit, OnDestroy, ControlValu
     get options(): Pickadate.DateOptions {
         return {
             disable: this.disable,
-            format: this.format
+            format: this.format,
+            today: '',
+            clear: '',
+            close: ''
         }
     }
 }
