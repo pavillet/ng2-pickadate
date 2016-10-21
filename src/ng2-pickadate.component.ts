@@ -70,7 +70,7 @@ export class PickadateComponent implements AfterViewInit, OnDestroy, ControlValu
 
     @HostListener('click', ['$event'])
     onClick(event) {
-        if (this.design == 'material') {
+        if (this.design == 'material'  && !this.inputDisabled) {
             $(this.el.nativeElement).find('.picker__holder').focus();
         }
     }
