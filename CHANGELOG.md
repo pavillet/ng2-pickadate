@@ -1,49 +1,91 @@
-<a name="0.3.23"></a>
-## [0.3.23](https://github.com/cschroeter/ng2-pickadate/compare/0.3.22...v0.3.23) (2016-10-07)
-
-
-
-<a name="0.3.22"></a>
-## [0.3.22](https://github.com/cschroeter/ng2-pickadate/compare/0.3.20...0.3.22) (2016-10-07)
+<a name="0.3.26"></a>
+## [0.3.26](https://github.com/cschroeter/ng2-pickadate/compare/0.3.25...0.3.26) (2016-10-21)
 
 
 ### Bug Fixes
 
-*  recognize changes by setting disabled-dates and the initial value ([add8a87](https://github.com/cschroeter/ng2-pickadate/commit/add8a87))
+* set click-focus to datepicker when input element is material-design ([fe6ab5b](https://github.com/cschroeter/ng2-pickadate/commit/fe6ab5b))
+
+
+
+<a name="0.3.25"></a>
+## [0.3.25](https://github.com/cschroeter/ng2-pickadate/compare/0.3.24...0.3.25) (2016-10-21)
+
+
+### Bug Fixes
+
+* change dependency-versions to remove some dependency-warnings ([fd9fa56](https://github.com/cschroeter/ng2-pickadate/commit/fd9fa56))
+
+
+
+<a name="0.3.24"></a>
+## [0.3.24](https://github.com/cschroeter/ng2-pickadate/compare/0.3.23...0.3.24) (2016-10-20)
+
+
+### Bug Fixes
+
+* ensure that empty disabled-dates aren't set to the datepicker ([9b3118e](https://github.com/cschroeter/ng2-pickadate/commit/9b3118e))
+* ensure that the generated module is exported for module import ([3f9d494](https://github.com/cschroeter/ng2-pickadate/commit/3f9d494))
 
 
 ### Features
 
-* add readonly feature to disable date selection and modification ([9b90449](https://github.com/cschroeter/ng2-pickadate/commit/9b90449))
+* add design-property to allow material design on component ([68741a8](https://github.com/cschroeter/ng2-pickadate/commit/68741a8))
+* support language-key as input parameter, to set the language of the datepicker ([6c50972](https://github.com/cschroeter/ng2-pickadate/commit/6c50972))
+
+
+### BREAKING CHANGES
+
+* directive replaced by component
+
+
+
+<a name="0.3.23"></a>
+## [0.3.23](https://github.com/cschroeter/ng2-pickadate/compare/0.3.22...0.3.23) (2016-10-12)
+
+
+
+<a name="0.3.22"></a>
+## [0.3.22](https://github.com/cschroeter/ng2-pickadate/compare/0.3.20...0.3.22) (2016-10-12)
+
+
+### Bug Fixes
+
+*  recognize changes by setting disabled-dates and the initial value ([28b1e70](https://github.com/cschroeter/ng2-pickadate/commit/28b1e70))
+
+
+### Features
+
+* add readonly feature to disable date selection and modification ([04f2db7](https://github.com/cschroeter/ng2-pickadate/commit/04f2db7))
 
 
 
 <a name="0.3.20"></a>
-## [0.3.20](https://github.com/cschroeter/ng2-pickadate/compare/0.3.19...0.3.20) (2016-10-04)
+## [0.3.20](https://github.com/cschroeter/ng2-pickadate/compare/0.3.19...0.3.20) (2016-10-12)
 
 
 ### Bug Fixes
 
-* add click-listener, that click event is catched for encapsulated input-components ([9b2123a](https://github.com/cschroeter/ng2-pickadate/commit/9b2123a))
-* bind datepicker attributes to angular model for detecting changes ([28abbd5](https://github.com/cschroeter/ng2-pickadate/commit/28abbd5))
-* change build-script , to maintain the shared-folder including pickadate-files as well ([a933f46](https://github.com/cschroeter/ng2-pickadate/commit/a933f46)), closes [#6](https://github.com/cschroeter/ng2-pickadate/issues/6)
-* change require-path for jquery, that it could be find in node_modules directory ([1250aa8](https://github.com/cschroeter/ng2-pickadate/commit/1250aa8))
-* trigger change detectiton after changing value, to set it instantly to angular's form control ([f4da96d](https://github.com/cschroeter/ng2-pickadate/commit/f4da96d))
+* add click-listener, that click event is catched for encapsulated input-components ([30c5412](https://github.com/cschroeter/ng2-pickadate/commit/30c5412))
+* bind datepicker attributes to angular model for detecting changes ([b7b5ce9](https://github.com/cschroeter/ng2-pickadate/commit/b7b5ce9))
+* change build-script , to maintain the shared-folder including pickadate-files as well ([f980dc3](https://github.com/cschroeter/ng2-pickadate/commit/f980dc3)), closes [#6](https://github.com/cschroeter/ng2-pickadate/issues/6)
+* change require-path for jquery, that it could be find in node_modules directory ([c5333b0](https://github.com/cschroeter/ng2-pickadate/commit/c5333b0))
+* trigger change detectiton after changing value, to set it instantly to angular's form control ([9708924](https://github.com/cschroeter/ng2-pickadate/commit/9708924))
 
 
 
 <a name="0.3.19"></a>
-## [0.3.19](https://github.com/cschroeter/ng2-pickadate/compare/0.3.18...0.3.19) (2016-09-26)
+## [0.3.19](https://github.com/cschroeter/ng2-pickadate/compare/0.3.18...0.3.19) (2016-10-12)
 
 
 ### Bug Fixes
 
-* recognize input changes from datepicker and synchronize it with the ng-form ([55c0628](https://github.com/cschroeter/ng2-pickadate/commit/55c0628))
+* recognize input changes from datepicker and synchronize it with the ng-form ([1c1c00b](https://github.com/cschroeter/ng2-pickadate/commit/1c1c00b))
 
 
 ### Chores
 
-* rename directive-selector to conventional standard ([339ba4e](https://github.com/cschroeter/ng2-pickadate/commit/339ba4e))
+* rename directive-selector to conventional standard ([806088b](https://github.com/cschroeter/ng2-pickadate/commit/806088b))
 
 
 ### BREAKING CHANGES
@@ -53,18 +95,23 @@
 
 
 <a name="0.3.18"></a>
-## [0.3.18](https://github.com/cschroeter/ng2-pickadate/compare/0.3.1...0.3.18) (2016-09-22)
+## [0.3.18](https://github.com/cschroeter/ng2-pickadate/compare/0.3.17...0.3.18) (2016-10-12)
 
 
 ### Bug Fixes
 
-* use ng2-pickadate as a directive instead of a component, that the datepicker may be used on different components ([b792a1e](https://github.com/cschroeter/ng2-pickadate/commit/b792a1e))
-* workaround to use datepicker until the webpack-configuration could be modified ([e60f98b](https://github.com/cschroeter/ng2-pickadate/commit/e60f98b))
+* use ng2-pickadate as a directive instead of a component, that the datepicker may be used on different components ([7b7ea9a](https://github.com/cschroeter/ng2-pickadate/commit/7b7ea9a))
+* workaround to use datepicker until the webpack-configuration could be modified ([aadc10f](https://github.com/cschroeter/ng2-pickadate/commit/aadc10f))
 
 
 ### Features
 
 * implement disable-date, placeholder properties and formControl ([18c8fe6](https://github.com/cschroeter/ng2-pickadate/commit/18c8fe6))
+
+
+
+<a name="0.3.17"></a>
+## [0.3.17](https://github.com/cschroeter/ng2-pickadate/compare/0.3.1...0.3.17) (2016-09-08)
 
 
 
