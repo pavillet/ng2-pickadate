@@ -1,6 +1,6 @@
 declare var require: any;
 import {
-    Component, ElementRef, ViewChild, forwardRef, Input, Output,
+    Component, HostListener, ElementRef, ViewChild, forwardRef, Input, Output,
     AfterViewInit, OnDestroy, EventEmitter, ChangeDetectorRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -65,8 +65,16 @@ export class PickadateComponent implements AfterViewInit, OnDestroy, ControlValu
     private datepicker: Pickadate.DatePicker;
     private pickerInitialized: boolean = false;
 
-    constructor(private cd: ChangeDetectorRef) {
+    constructor(private cd: ChangeDetectorRef, private el: ElementRef) {
     }
+
+    @HostListener('click', ['$event'])
+    onClick(event) {
+        if (this.design == 'material') {
+            $(this.el.nativeElement).find('.picker__holder').focus();
+        }
+    }
+
 
     ngAfterViewInit(): any {
         new PickadateTranslationLoader(this.browserLang);
