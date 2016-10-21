@@ -1,3 +1,13 @@
+<a name="0.3.27"></a>
+## [0.3.27](https://github.com/cschroeter/ng2-pickadate/compare/0.3.26...0.3.27) (2016-10-21)
+
+
+### Bug Fixes
+
+* don't focus the datepicker while input is disabled ([2911c0c](https://github.com/cschroeter/ng2-pickadate/commit/2911c0c))
+
+
+
 <a name="0.3.26"></a>
 ## [0.3.26](https://github.com/cschroeter/ng2-pickadate/compare/0.3.25...0.3.26) (2016-10-21)
 
