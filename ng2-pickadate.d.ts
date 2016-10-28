@@ -1,1 +1,1 @@
-export * from './lib/ng2-pickadate.module';
+export * from './lib/ng2Pickadate.module';

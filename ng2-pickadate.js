@@ -1,1 +1,1 @@
-exports.PickadateModule = require('./lib/ng2-pickadate.module').PickadateModule;
+exports.PickadateModule = require('./lib/ng2Pickadate.module').PickadateModule;

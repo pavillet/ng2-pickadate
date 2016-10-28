@@ -1,3 +1,5 @@
+declare var require;
+
 export class PickadateTranslationLoader {
     constructor(userLang: string) {
         /* next line is a workaround for https://github.com/amsul/pickadate.js/issues/709 */
