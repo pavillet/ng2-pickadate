@@ -159,8 +159,10 @@ export class PickadateComponent implements AfterViewInit, OnDestroy, ControlValu
         this.datepicker.on('close', () => this.onClose.emit(null));
 
         this.datepicker.on('set', (value) => {
-            this.inputValue = this.input.value;
-            this.onSelect.emit(value);
+            if(value.select != null) { // the set event is fired for every set, but we should listen only to set->select
+                this.inputValue = this.input.value;
+                this.onSelect.emit(value);
+            }
         });
     }
 
