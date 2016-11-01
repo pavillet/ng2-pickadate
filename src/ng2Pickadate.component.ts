@@ -5,7 +5,9 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MdInput } from '@angular/material';
-import { PickadateTranslationLoader } from './pickadateTranslationLoader';
+import { TranslationHelper } from './pickadateTranslationLoader';
+
+import * as _ from 'lodash';
 
 window['$'] = require('jquery/dist/jquery');
 window['jQuery'] = require('jquery/dist/jquery');
@@ -17,7 +19,7 @@ import './shared/picker.date';
     template: `<md-input 
                  #inputMaterial 
                  *ngIf="design=='material'" 
-                 [value]="inputValue"
+                 [value]="value"
                  [placeholder]="placeholder"></md-input>
                <input 
                  type="text" 
@@ -25,14 +27,12 @@ import './shared/picker.date';
                  *ngIf="design==''"
                  [placeholder]="placeholder" />`,
     styles: [`
-        :host {
-            display: block;
-        }
+        /* to use the full width of the host component */
         input {
             width: 100%;
         }
         md-input{
-            width: 100%;
+            width: 100%; 
         }
     `],
     providers: [
@@ -41,13 +41,13 @@ import './shared/picker.date';
 })
 export class PickadateComponent implements AfterViewInit, OnDestroy, ControlValueAccessor {
 
-    @Input() public design: string = '';
+    @Input() public design: string = ''; // TODO datepicker should be 'design'-independent (e.g. use it as directive)
     @Input() public format: string = 'yyyy.mm.dd';
-    @Input() public browserLang: string = '';
-    @Input() public disable: any = {};
-    @Input() public inputDisabled: boolean = false;
-    @Input() public min: Pickadate.MinOrMaxDateOption;
-    @Input() public max: Pickadate.MinOrMaxDateOption;
+    @Input() public locale: string = navigator.language;
+    @Input() public disabled: boolean = false;
+    @Input() public disabledDates: any = [];
+    @Input() public min: Pickadate.MinOrMaxDateOption = false;
+    @Input() public max: Pickadate.MinOrMaxDateOption = false;
     @Input() public placeholder: string;
 
     @Output('open') public onOpen: EventEmitter<void> = new EventEmitter<void>();
@@ -57,66 +57,63 @@ export class PickadateComponent implements AfterViewInit, OnDestroy, ControlValu
     @ViewChild('inputNormal') inputRef: ElementRef;
     @ViewChild('inputMaterial') inputRefMaterial: MdInput;
     private input: HTMLInputElement;
-    private _inputValue: string = '';
+    private _value: string = '';
 
     private propagateChange: any = () => {
     };
 
     private datepicker: Pickadate.DatePicker;
-    private pickerInitialized: boolean = false;
+    private initialized: boolean = false;
 
-    constructor(private cd: ChangeDetectorRef, private el: ElementRef) {
+    constructor(private changeDetector: ChangeDetectorRef, private el: ElementRef) {
     }
 
     @HostListener('click', ['$event'])
     onClick(event) {
-        if (this.design == 'material'  && !this.inputDisabled) {
+        if (this.design == 'material' && !this.disabled) {
             $(this.el.nativeElement).find('.picker__holder').focus();
         }
     }
 
 
     ngAfterViewInit(): any {
-        new PickadateTranslationLoader(this.browserLang);
+        new TranslationHelper(this.locale).loadLanguage();
 
-        this.input = this.findInputElementInChild();
-        if (this.placeholder) {
-            this.input.placeholder = this.placeholder;
-        }
+        this.input = this.findInputElement();
 
         let picker: JQuery = $(this.input).pickadate(this.options);
         this.datepicker = picker.pickadate('picker');
 
-        if (this.inputValue) {
-            this.input.value = this.inputValue;
-            this.setPickadateValue(this.inputValue);
+        if (this.placeholder) {
+            this.input.placeholder = this.placeholder;
         }
 
-        if(this.inputDisabled){
+        if (this.value) {
+            this.input.value = this.value;
+            this.setDatepickerValue(this.value);
+        }
+
+        if (this.disabled) {
             this.input.disabled = true;
             this.input.readOnly = true;
         }
-        this.initializePickadateListeners();
-        this.pickerInitialized = true;
+        this.registerListeners();
+        this.initialized = true;
     }
 
     ngOnChanges() {
-        if (!this.pickerInitialized) {
+        if (!this.initialized || this.disabled) {
             return;
         }
 
-        if(!this.inputDisabled) {
-            if (this.min != null) {
-                this.datepicker.set('min', this.min);
-            }
-
-            if (this.max != null) {
-                this.datepicker.set('max', this.max);
-            }
+        if (!_.isNil(this.min)) {
+            this.datepicker.set('min', this.min);
         }
-
-        if (this.disable != null && this.disable !== {} ) {
-            this.datepicker.set('disable', this.disable);
+        if (!_.isNil(this.max)) {
+            this.datepicker.set('max', this.max);
+        }
+        if (!_.isEmpty(this.disabledDates)) {
+            this.datepicker.set('_disabledDates', this.disabledDates);
         }
     }
 
@@ -125,15 +122,11 @@ export class PickadateComponent implements AfterViewInit, OnDestroy, ControlValu
     }
 
     writeValue(value: string) {
-        this.inputValue = value;
-        if (!this.pickerInitialized) {
+        this.value = value;
+        if (!this.initialized) {
             return;
         }
-        if (value) {
-            this.setPickadateValue(value);
-        } else {
-            this.datepicker.clear();
-        }
+        this.setDatepickerValue(value);
     }
 
     registerOnChange(fn) {
@@ -143,50 +136,57 @@ export class PickadateComponent implements AfterViewInit, OnDestroy, ControlValu
     registerOnTouched() {
     }
 
-    private findInputElementInChild(): HTMLInputElement {
-        if(this.design === 'material') {
+    private findInputElement(): HTMLInputElement {
+        if (this.design === 'material') {
             return this.inputRefMaterial._inputElement.nativeElement;
         }
-        else {
+        else if (this.design === '') {
             return this.inputRef.nativeElement;
         }
     }
 
-    private initializePickadateListeners() {
-        this.datepicker.on('open', () => {
-            this.onOpen.emit(null)
-        });
+    private registerListeners() {
+        this.datepicker.on('open', () => this.onOpen.emit(null));
         this.datepicker.on('close', () => this.onClose.emit(null));
 
         this.datepicker.on('set', (value) => {
-            if(value.select != null) { // the set event is fired for every set, but we should listen only to set->select
-                this.inputValue = this.input.value;
+            if (!_.isNil(value.select)) {
+                // the set event is fired for every set, but we should listen only to set->select
+                this.value = this.input.value;
                 this.onSelect.emit(value);
             }
         });
     }
 
-    get inputValue() {
-        return this._inputValue;
+    get value() {
+        return this._value;
     }
 
-    set inputValue(val: string) {
-        this._inputValue = val;
-        if (this.input != null) {
+    set value(val: string) {
+        this._value = val;
+        if (_.isElement(this.input)) {
             this.input.value = val;
         }
-        //noinspection TypeScriptValidateTypes
+
         this.propagateChange(val);
-        this.cd.markForCheck();
+        this.changeDetector.markForCheck();
     }
 
-    private setPickadateValue(val: string) {
-        this.datepicker.set('select', val, {format: this.format});
+    private setDatepickerValue(val: string) {
+        if (val) {
+            this.datepicker.set('select', val, {format: this.format});
+        } else {
+            this.datepicker.clear();
+        }
     }
 
     get options(): Pickadate.DateOptions {
+        if (_.isNil(this.disabledDates)) {
+            this.disabledDates = [];
+        }
+
         return {
-            disable: this.disable,
+            disable: this.disabledDates,
             format: this.format,
             today: '',
             clear: '',

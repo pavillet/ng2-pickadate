@@ -1,3 +1,25 @@
+<a name="0.3.28"></a>
+## [0.3.28](https://github.com/cschroeter/ng2-pickadate/compare/0.3.27...v0.3.28) (2016-11-01)
+
+
+### Bug Fixes
+
+* improve performance by checking set event type, that only the select event is handled (instead of listening to all type of events) ([5922d74](https://github.com/cschroeter/ng2-pickadate/commit/5922d74))
+
+
+### Chores
+
+* some stuff to get code cleaner and more meaningful ([8346058](https://github.com/cschroeter/ng2-pickadate/commit/8346058))
+
+
+### BREAKING CHANGES
+
+* - replace input browserLang by locale
+- replace disable by disabledDates
+- replace inputDisabled by disabled
+
+
+
 <a name="0.3.27"></a>
 ## [0.3.27](https://github.com/cschroeter/ng2-pickadate/compare/0.3.26...0.3.27) (2016-10-21)
 

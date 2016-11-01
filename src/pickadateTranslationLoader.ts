@@ -1,11 +1,14 @@
 declare var require;
 
-export class PickadateTranslationLoader {
+export class TranslationHelper {
+    private userLang: string = 'en';
     constructor(userLang: string) {
         /* next line is a workaround for https://github.com/amsul/pickadate.js/issues/709 */
         jQuery.fn.pickatime = {defaults: {}};
+    }
 
-        switch (userLang) {
+    loadLanguage(){
+        switch (this.userLang) {
             case 'DE':
                 require('pickadate/lib/translations/de_DE');
                 break;
@@ -18,7 +21,7 @@ export class PickadateTranslationLoader {
                 require('pickadate/lib/translations/fr_FR');
 
             case 'GB':
-            // english is loaded by default, nothing to do...
+                // english is loaded by default, nothing to do...
                 break;
 
             case 'EN':
