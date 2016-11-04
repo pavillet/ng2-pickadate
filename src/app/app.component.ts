@@ -13,7 +13,8 @@ export class AppComponent {
 
     constructor(private fb: FormBuilder) {
         this.form = this.fb.group({
-            date: ''
+            date: 1477540800000, // 2016, Oct' 27
+            date2: '2016.10.10'
         });
     }
 }

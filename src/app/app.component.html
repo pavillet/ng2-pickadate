@@ -1,8 +1,26 @@
+<h1>A angular2 based wrapper for the jquery datepicker `pickadate`</h1>
+
 <div [formGroup]="form">
-    Your selection is: {{form.value.date}} <br>
-    Date: <input type="text"
-                 formControlName="date"
-                 format="yyyy.mm.dd"
-                 [disable]="disabledDate"
-                 ng2Pickadate>
+  <h3>Datepicker with timestamp as model value</h3>
+  Your selection is: {{form.value.date}} <br>
+
+  <ng2-pickadate
+    design="material"
+    [placeholder]="'Date'"
+    formControlName="date"
+    format="yyyy.mm.dd"
+    [disabledDates]="disabledDate"></ng2-pickadate>
+
+
+  <h3>Datepicker with formatted date as model value</h3>
+
+  Your selection is: {{form.value.date2}} <br>
+  <ng2-pickadate
+    design="material"
+    [placeholder]="'Date 2'"
+    formControlName="date2"
+    modelFormat="yyyy.mm.dd"
+    format="yyyy.mm.dd"
+    [disabledDates]="disabledDate"></ng2-pickadate>
+
 </div>
