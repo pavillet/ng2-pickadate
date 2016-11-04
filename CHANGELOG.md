@@ -1,5 +1,20 @@
+<a name="0.3.29"></a>
+## [0.3.29](https://github.com/cschroeter/ng2-pickadate/compare/0.3.28...0.3.29) (2016-11-04)
+
+
+### Features
+
+* use unix model format as default if there is no modal-format specified ([70487e6](https://github.com/cschroeter/ng2-pickadate/commit/70487e6)), closes [#7](https://github.com/cschroeter/ng2-pickadate/issues/7)
+
+
+### BREAKING CHANGES
+
+* you have to use the input-parameter modelFormat to set the format of model value when its not a unix timestamp
+
+
+
 <a name="0.3.28"></a>
-## [0.3.28](https://github.com/cschroeter/ng2-pickadate/compare/0.3.27...v0.3.28) (2016-11-01)
+## [0.3.28](https://github.com/cschroeter/ng2-pickadate/compare/0.3.27...0.3.28) (2016-11-01)
 
 
 ### Bug Fixes
@@ -9,7 +24,7 @@
 
 ### Chores
 
-* some stuff to get code cleaner and more meaningful ([8346058](https://github.com/cschroeter/ng2-pickadate/commit/8346058))
+* some stuff to get code cleaner and more meaningful ([be47afb](https://github.com/cschroeter/ng2-pickadate/commit/be47afb))
 
 
 ### BREAKING CHANGES
