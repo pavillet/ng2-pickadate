@@ -9,6 +9,8 @@ import { TranslationHelper } from './pickadateTranslationLoader';
 
 import * as _ from 'lodash';
 
+import * as moment from 'moment';
+
 window['$'] = require('jquery/dist/jquery');
 window['jQuery'] = require('jquery/dist/jquery');
 window['picker'] = require('./shared/picker');
@@ -42,12 +44,13 @@ import './shared/picker.date';
 export class PickadateComponent implements AfterViewInit, OnDestroy, ControlValueAccessor {
 
     @Input() public design: string = ''; // TODO datepicker should be 'design'-independent (e.g. use it as directive)
+    @Input() public modelFormat: string = '';
     @Input() public format: string = 'yyyy.mm.dd';
     @Input() public locale: string = navigator.language;
     @Input() public disabled: boolean = false;
     @Input() public disabledDates: any = [];
-    @Input() public min: Pickadate.MinOrMaxDateOption = false;
-    @Input() public max: Pickadate.MinOrMaxDateOption = false;
+    @Input() public min: Pickadate.MinOrMaxDateOption;
+    @Input() public max: Pickadate.MinOrMaxDateOption;
     @Input() public placeholder: string;
 
     @Output('open') public onOpen: EventEmitter<void> = new EventEmitter<void>();
@@ -83,13 +86,13 @@ export class PickadateComponent implements AfterViewInit, OnDestroy, ControlValu
 
         let picker: JQuery = $(this.input).pickadate(this.options);
         this.datepicker = picker.pickadate('picker');
+        this.initialized = true;
 
         if (this.placeholder) {
             this.input.placeholder = this.placeholder;
         }
 
         if (this.value) {
-            this.input.value = this.value;
             this.setDatepickerValue(this.value);
         }
 
@@ -98,7 +101,10 @@ export class PickadateComponent implements AfterViewInit, OnDestroy, ControlValu
             this.input.readOnly = true;
         }
         this.registerListeners();
-        this.initialized = true;
+    }
+
+    ngAfterViewChecked(): void {
+        this.input.value = moment(this.value).format(this.format.toUpperCase());
     }
 
     ngOnChanges() {
@@ -150,8 +156,7 @@ export class PickadateComponent implements AfterViewInit, OnDestroy, ControlValu
         this.datepicker.on('close', () => this.onClose.emit(null));
 
         this.datepicker.on('set', (value) => {
-            if (!_.isNil(value.select)) {
-                // the set event is fired for every set, but we should listen only to set->select
+            if (!_.isNil(value.select)) { // the set event is fired for every set, but we should listen only to set->select
                 this.value = this.input.value;
                 this.onSelect.emit(value);
             }
@@ -164,17 +169,19 @@ export class PickadateComponent implements AfterViewInit, OnDestroy, ControlValu
 
     set value(val: string) {
         this._value = val;
-        if (_.isElement(this.input)) {
-            this.input.value = val;
-        }
+        let modelValue: string = moment(val, this.format.toUpperCase()).format(this.modelFormat ? this.modelFormat.toUpperCase() : 'x');
 
-        this.propagateChange(val);
+        this.propagateChange(modelValue); //set to model
         this.changeDetector.markForCheck();
     }
 
     private setDatepickerValue(val: string) {
+        if (!this.initialized) {
+            return;
+        }
+
         if (val) {
-            this.datepicker.set('select', val, {format: this.format});
+            this.datepicker.set('select', this.value, {format: this.format});
         } else {
             this.datepicker.clear();
         }

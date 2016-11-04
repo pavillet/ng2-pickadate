@@ -15,7 +15,11 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'my-app',
-    template: `<input type="text" [min]="minDate" (select)="onSelect($event)" ng2-pickadate>`
+    template: `<ng2-pickadate
+                [min]="minDate"
+                (select)="onSelect($event)"
+                formControlName="date"
+                modelFormat="DD.MM.YYYY">`
 })
 export class AppComponent {
     public minDate: Date = new Date();
@@ -28,6 +32,9 @@ export class AppComponent {
  ```
  Remind binding components and modules with NgModule (explained in [Angular CLI Configuration](./docs/angular-cli.md))
 
+- The input value given by the form is by default a timestamp (analog to the amsul's pickadate). If you provide the
+property modelFormat with a valid dateformat, the model value is interpreted with that. Min and max Date should be set
+using the display format.
 
 ### Requirements
 
