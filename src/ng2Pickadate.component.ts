@@ -104,7 +104,7 @@ export class PickadateComponent implements AfterViewInit, OnDestroy, ControlValu
     }
 
     ngAfterViewChecked(): void {
-        this.input.value = moment(this.value).format(this.format.toUpperCase());
+        this.input.value = moment(this.value, this.format.toUpperCase()).format(this.format.toUpperCase());
     }
 
     ngOnChanges() {
