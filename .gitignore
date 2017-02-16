@@ -13,6 +13,8 @@ coverage
 !karma-test-shim.js
 !make.js
 !bundles/*.js
+/compiled
+*.metadata.json
 
 #################
 ## JetBrains
